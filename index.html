@@ -10,19 +10,23 @@
   </head>
   <body>
     <header class="header">
-      <div><button>View High Scores</button></div>
-      <div><h2>Time left:</h2></div>
+      <div><button id="high-scores">View High Scores</button></div>
+      <div>
+        <h2>Time left:<span id="countdown"></span></h2>
+      </div>
     </header>
     <main class="container">
       <div class="heading-div"><h1>Code Quiz</h1></div>
       <div>
-        <h2>
+        <h2 class="description">
           Try and answer the following coding questions within the time limit.
           Beware, any incorrect answers will deduct 10 seconds from your
           remaining time! Good luck!
         </h2>
       </div>
-      <div class="button-div"><button>START QUIZ</button></div>
+      <div class="button-div" id="start-button">
+        <button>START QUIZ</button>
+      </div>
     </main>
     <script src="assets/js/script.js"></script>
   </body>
