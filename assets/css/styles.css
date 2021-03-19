@@ -3,7 +3,7 @@
   justify-content: space-between;
   background-color: aquamarine;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
 }
 
 .container {
@@ -14,4 +14,12 @@
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 20px;
+}
+
+.heading-div {
+  padding: 30px;
+}
+
+.button-div {
+  padding: 30px;
 }
