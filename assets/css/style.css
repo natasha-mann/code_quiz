@@ -27,6 +27,36 @@
   padding: 20px;
 }
 
+.questions-container {
+  height: 400px;
+  width: 60%;
+  position: absolute;
+  border: 1px solid black;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+}
+
+.questions-div {
+  padding: 20px;
+}
+
+.answers-div {
+  margin-top: 10px;
+}
+
+.answer-btn {
+  padding: 10px;
+  background-color: teal;
+  border: none;
+  font-size: 24px;
+  font-weight: bolder;
+  width: 200px;
+  margin: 5px 0;
+}
+
 .heading-div {
   padding: 30px;
 }
