@@ -1,3 +1,3 @@
-const highScoresButton = document.getElementById("high-score");
-const countdown = document.getElementById("countdown");
-const startQuizButton = document.getElementById("start-button");
+const highScoresButton = document.getElementById("high-scores");
+const timer = document.getElementById("timer");
+const startQuizButton = document.getElementById("start-btn");
