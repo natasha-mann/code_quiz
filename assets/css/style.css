@@ -6,6 +6,15 @@
   padding: 20px;
 }
 
+.high-scores {
+  text-decoration: none;
+  padding: 10px;
+  background-color: teal;
+  color: black;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
 .container {
   height: 400px;
   width: 60%;
@@ -22,6 +31,22 @@
   padding: 30px;
 }
 
+.description {
+  margin-top: 30px;
+}
+
 .button-div {
+  position: absolute;
   padding: 30px;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.btn {
+  padding: 20px;
+  background-color: teal;
+  border: none;
+  font-size: 24px;
+  font-weight: bolder;
 }
