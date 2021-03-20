@@ -4,7 +4,9 @@ const clearHighScoresButtonElement = document.getElementById(
 );
 
 // navigate back to main html document function
-const goBackToQuizPage = () => {};
+const goBackToQuizPage = () => {
+  location.href = "../../index.html";
+};
 
 // clear high scores function
 const clearHighScores = () => {};
