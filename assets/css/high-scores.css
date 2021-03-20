@@ -1,4 +1,6 @@
 .container {
+  height: 400px;
+  width: 60%;
   position: absolute;
   border: 1px solid black;
   left: 50%;
@@ -10,4 +12,16 @@
 
 .high-scores-div {
   padding: 20px;
+}
+
+.btns-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  top: 60%;
+}
+
+.btn {
+  margin: 20px;
 }
