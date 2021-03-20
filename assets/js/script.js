@@ -19,6 +19,8 @@ const startTimer = () => {
       // construct end of quiz container
 
       // Remove quiz questions container
+      const quizContainerDivElement = document.getElementById("quiz-container");
+      document.body.removeChild(quizContainerDivElement);
 
       // append end of quiz container
 
