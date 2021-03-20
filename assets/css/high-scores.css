@@ -19,9 +19,14 @@
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
-  top: 60%;
+  top: 40%;
 }
 
 .btn {
   margin: 20px;
+  padding: 20px;
+  background-color: teal;
+  border: none;
+  font-size: 24px;
+  font-weight: bolder;
 }
