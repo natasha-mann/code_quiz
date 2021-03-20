@@ -1,0 +1,13 @@
+.container {
+  position: absolute;
+  border: 1px solid black;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 10px;
+}
+
+.high-scores-div {
+  padding: 20px;
+}
