@@ -106,10 +106,17 @@ const submitScore = (event) => {
   // get info from finalscore
   // get info from initials input
   const initials = document.getElementById("initials-input");
-  // add this info to a string
-  const initialsAndScoreString = initials.value + " - " + finalScore;
-  //store string in local storage
-  localStorage.setItem("Highscore", initialsAndScoreString);
+  // add this info to an object array
+  const highscores = {
+    Initials: initials.value,
+    Score: finalScore,
+  };
+  console.log(highscores);
+  //convert array to string to store in local storage
+  const highScoresString = JSON.stringify(highscores);
+  console.log(highScoresString);
+  localStorage.setItem("High Score", highScoresString);
+
   // navigate to highscores page
   location.href = "../../high-scores.html";
 };
