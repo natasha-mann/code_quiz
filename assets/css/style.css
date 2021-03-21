@@ -6,25 +6,13 @@
   padding: 20px;
 }
 
-.high-scores {
+.high-scores-link {
   text-decoration: none;
   padding: 10px;
   background-color: teal;
   color: black;
   font-size: 24px;
   font-weight: bolder;
-}
-
-.container {
-  height: 400px;
-  width: 60%;
-  position: absolute;
-  border: 1px solid black;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 20px;
 }
 
 .quiz-container {
@@ -39,6 +27,31 @@
   padding: 20px;
 }
 
+.heading-div {
+  padding: 30px;
+}
+
+.description {
+  margin-top: 30px;
+}
+
+.start-button-div {
+  position: absolute;
+  padding: 30px;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.btn {
+  padding: 20px;
+  background-color: teal;
+  border: none;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+/* Styling for quiz question container */
 .questions-div {
   padding: 20px;
 }
@@ -57,26 +70,9 @@
   margin: 5px 0;
 }
 
-.heading-div {
-  padding: 30px;
+/* Styling for game over container */
+.results-heading-div {
 }
 
-.description {
-  margin-top: 30px;
-}
-
-.button-div {
-  position: absolute;
-  padding: 30px;
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%);
-}
-
-.btn {
-  padding: 20px;
-  background-color: teal;
-  border: none;
-  font-size: 24px;
-  font-weight: bolder;
+.results-info {
 }
