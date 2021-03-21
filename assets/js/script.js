@@ -116,7 +116,7 @@ const storeUserScores = () => {
     console.log(highScores);
 
     localStorage.setItem("highScores", JSON.stringify(highScores));
-    displayHighScores();
+    location.href = "../../high-scores.html";
   } else {
     alert("Please enter your initials to save your score.");
   }
@@ -137,12 +137,6 @@ const submitScore = (event) => {
   event.preventDefault();
   console.log("This works yay");
   storeUserScores();
-  // displayHighScores();
-};
-
-const displayHighScores = () => {
-  // navigate to highscores page
-  location.href = "../../high-scores.html";
 };
 
 // Start quiz function
