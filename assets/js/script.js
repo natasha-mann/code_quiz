@@ -4,7 +4,7 @@ const introContainer = document.getElementById("quiz-container");
 const submitScoreBtn = document.getElementById("submit-score-btn");
 
 let timerValue = 1;
-const highScores = [];
+let highScores = [];
 
 //to remove or redefine
 const finalScore = 20;
@@ -103,7 +103,7 @@ const startTimer = () => {
 };
 
 // Log high scores to local storage
-const storeHighScores = () => {
+const storeUserScores = () => {
   // get info from initials input
   let initials = document.getElementById("initials-input").value;
 
@@ -114,11 +114,21 @@ const storeHighScores = () => {
     };
     highScores.push(score);
     console.log(highScores);
+
     localStorage.setItem("highScores", JSON.stringify(highScores));
-    // displayHighScores();
-    return highScores;
+    displayHighScores();
   } else {
     alert("Please enter your initials to save your score.");
+  }
+};
+
+//Retrieve high scores from local storage and load them into an array called highScoreArray
+loadHighScores = () => {
+  let highScoresArray = localStorage.getItem("highScores");
+  if (highScoresArray) {
+    highScores = JSON.parse(highScoresArray);
+  } else {
+    localStorage.setItem("highScores", JSON.stringify(highScores));
   }
 };
 
@@ -126,7 +136,8 @@ const storeHighScores = () => {
 const submitScore = (event) => {
   event.preventDefault();
   console.log("This works yay");
-  storeHighScores();
+  storeUserScores();
+  // displayHighScores();
 };
 
 const displayHighScores = () => {
@@ -142,6 +153,7 @@ const startQuiz = () => {
   document.body.removeChild(introContainer);
   document.body.appendChild(quizContainerDiv);
   // start timer
+  loadHighScores();
   startTimer();
 };
 
