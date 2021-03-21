@@ -20,6 +20,8 @@ const displayHighScores = () => {
 const constructHighScoresTable = (item, index) => {
   let counter = index + 1;
   const highScoreItem = document.createElement("li");
+  highScoreItem.setAttribute("class", "list-item");
+  const highScoreCounter = document.createElement;
   highScoreItem.textContent =
     counter + ".   " + item["Initials"] + " -   " + item["Score"];
   highScoresListContainer.appendChild(highScoreItem);

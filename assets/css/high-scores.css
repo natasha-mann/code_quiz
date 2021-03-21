@@ -1,5 +1,4 @@
 .container {
-  height: 400px;
   width: 60%;
   position: absolute;
   border: 1px solid black;
@@ -12,6 +11,17 @@
 
 .high-scores-div {
   padding: 20px;
+}
+
+.list-item {
+  list-style-type: none;
+  text-align: start;
+  font-size: 24px;
+  padding: 5px;
+}
+
+.list-item:nth-child(2n) {
+  background-color: lightcyan;
 }
 
 .btns-div {
