@@ -103,6 +103,14 @@ const startTimer = () => {
 const submitScore = (event) => {
   event.preventDefault();
   console.log("This works yay");
+  // get info from finalscore
+  // get info from initials input
+  const initials = document.getElementById("initials-input");
+  // add this info to a string
+  const initialsAndScoreString = initials.value + " - " + finalScore;
+  //store string in local storage
+  localStorage.setItem("Highscore", initialsAndScoreString);
+  // navigate to highscores page
 };
 
 // Start quiz function
