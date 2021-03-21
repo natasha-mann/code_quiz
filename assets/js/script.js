@@ -1,9 +1,10 @@
 const timerSpanElement = document.getElementById("timer");
 const startQuizButtonElement = document.getElementById("start-btn");
 const introContainer = document.getElementById("quiz-container");
+const submitScoreBtn = document.getElementById("submit-score-btn");
 
 let timerValue = 1;
-// to remove
+//to remove or redefine
 const finalScore = 20;
 
 // Construct quiz questions container
@@ -50,14 +51,14 @@ const constructGameOverContainer = () => {
   initialsInput.setAttribute("id", "initials-input");
   initialsInput.setAttribute("class", "initials-input");
 
-  const initialsSubmitBtn = document.createElement("button");
-  initialsSubmitBtn.setAttribute("type", "submit");
-  initialsSubmitBtn.setAttribute("id", "initials-submit-btn");
-  initialsSubmitBtn.setAttribute("class", "initials-submit-btn");
+  const submitScoreBtn = document.createElement("button");
+  submitScoreBtn.setAttribute("type", "submit");
+  submitScoreBtn.setAttribute("id", "submit-score-btn");
+  submitScoreBtn.setAttribute("class", "submit-score-btn");
 
   headingContainerDiv.textContent = "All done!";
   resultsContainerDiv.textContent = "Your final score is: ";
-  initialsSubmitBtn.textContent = "Submit";
+  submitScoreBtn.textContent = "Submit";
   // need to define final score
   finalScoreSpan.textContent = finalScore;
 
@@ -66,7 +67,7 @@ const constructGameOverContainer = () => {
   resultsContainerDiv.appendChild(finalScoreSpan);
   quizContainerDiv.appendChild(gameOverForm);
   gameOverForm.appendChild(initialsInput);
-  gameOverForm.appendChild(initialsSubmitBtn);
+  gameOverForm.appendChild(submitScoreBtn);
 
   return quizContainerDiv;
 };
@@ -97,7 +98,12 @@ const startTimer = () => {
   const timerInterval = setInterval(timerTick, 1000);
 };
 
-// Main quiz function
+const submitScore = (event) => {
+  event.preventDefault();
+  console.log("This works yay");
+};
+
+// Start quiz function
 const startQuiz = () => {
   // construct quiz container
   const quizContainerDiv = constructQuizContainer();
@@ -109,3 +115,4 @@ const startQuiz = () => {
 };
 
 startQuizButtonElement.addEventListener("click", startQuiz);
+submitScoreBtn.addEventListener("click", submitScore);
