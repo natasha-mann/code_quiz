@@ -43,6 +43,7 @@ const constructGameOverContainer = () => {
 
   const gameOverForm = document.createElement("form");
   gameOverForm.setAttribute("id", "game-over-form");
+  gameOverForm.setAttribute("class", "game-over-form");
 
   const initialsInput = document.createElement("input");
   initialsInput.setAttribute("placeholder", "Enter Initials");
@@ -54,8 +55,9 @@ const constructGameOverContainer = () => {
   initialsSubmitBtn.setAttribute("id", "initials-submit-btn");
   initialsSubmitBtn.setAttribute("class", "initials-submit-btn");
 
-  headingContainerDiv.textContent = "All done";
+  headingContainerDiv.textContent = "All done!";
   resultsContainerDiv.textContent = "Your final score is: ";
+  initialsSubmitBtn.textContent = "Submit";
   // need to define final score
   finalScoreSpan.textContent = finalScore;
 
