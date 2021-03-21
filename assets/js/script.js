@@ -69,6 +69,8 @@ const constructGameOverContainer = () => {
   gameOverForm.appendChild(initialsInput);
   gameOverForm.appendChild(submitScoreBtn);
 
+  submitScoreBtn.addEventListener("click", submitScore);
+
   return quizContainerDiv;
 };
 
@@ -115,4 +117,3 @@ const startQuiz = () => {
 };
 
 startQuizButtonElement.addEventListener("click", startQuiz);
-submitScoreBtn.addEventListener("click", submitScore);
