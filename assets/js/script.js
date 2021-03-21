@@ -111,6 +111,7 @@ const submitScore = (event) => {
   //store string in local storage
   localStorage.setItem("Highscore", initialsAndScoreString);
   // navigate to highscores page
+  location.href = "../../high-scores.html";
 };
 
 // Start quiz function
