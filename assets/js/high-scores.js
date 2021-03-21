@@ -5,7 +5,7 @@ const clearHighScoresButtonElement = document.getElementById(
 
 // navigate back to main html document function
 const goBackToQuizPage = () => {
-  location.href = "/index.html";
+  location.href = "code_quiz/index.html";
 };
 
 // clear high scores function

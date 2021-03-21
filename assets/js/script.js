@@ -118,7 +118,7 @@ const submitScore = (event) => {
   localStorage.setItem("High Score", highScoresString);
 
   // navigate to highscores page
-  location.href = "/high-scores.html";
+  location.href = "code_quiz/high-scores.html";
 };
 
 // Start quiz function
