@@ -4,6 +4,8 @@ const introContainer = document.getElementById("quiz-container");
 const submitScoreBtn = document.getElementById("submit-score-btn");
 
 let timerValue = 1;
+const highScores = [];
+
 //to remove or redefine
 const finalScore = 20;
 
@@ -62,14 +64,14 @@ const constructGameOverContainer = () => {
   // need to define final score
   finalScoreSpan.textContent = finalScore;
 
+  submitScoreBtn.addEventListener("click", submitScore);
+
   quizContainerDiv.appendChild(headingContainerDiv);
   quizContainerDiv.appendChild(resultsContainerDiv);
   resultsContainerDiv.appendChild(finalScoreSpan);
   quizContainerDiv.appendChild(gameOverForm);
   gameOverForm.appendChild(initialsInput);
   gameOverForm.appendChild(submitScoreBtn);
-
-  submitScoreBtn.addEventListener("click", submitScore);
 
   return quizContainerDiv;
 };
@@ -100,23 +102,34 @@ const startTimer = () => {
   const timerInterval = setInterval(timerTick, 1000);
 };
 
+// Log high scores to local storage
+const storeHighScores = () => {
+  // get info from initials input
+  let initials = document.getElementById("initials-input").value;
+
+  if (initials !== "") {
+    const score = {
+      Initials: initials,
+      Score: finalScore,
+    };
+    highScores.push(score);
+    console.log(highScores);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    // displayHighScores();
+    return highScores;
+  } else {
+    alert("Please enter your initials to save your score.");
+  }
+};
+
+// Submit high scores
 const submitScore = (event) => {
   event.preventDefault();
   console.log("This works yay");
-  // get info from finalscore
-  // get info from initials input
-  const initials = document.getElementById("initials-input");
-  // add this info to an object array
-  const highscores = {
-    Initials: initials.value,
-    Score: finalScore,
-  };
-  console.log(highscores);
-  //convert array to string to store in local storage
-  const highScoresString = JSON.stringify(highscores);
-  console.log(highScoresString);
-  localStorage.setItem("High Score", highScoresString);
+  storeHighScores();
+};
 
+const displayHighScores = () => {
   // navigate to highscores page
   location.href = "../../high-scores.html";
 };
