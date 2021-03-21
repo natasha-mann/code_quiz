@@ -9,6 +9,37 @@ let highScores = [];
 //to remove or redefine
 const finalScore = 20;
 
+// Quiz questions
+const questions = [
+  {
+    title: "Which of these is not a commonly used data type in Javascript?",
+    choices: ["strings", "booleans", "alerts", "numbers"],
+    answer: "alerts",
+  },
+
+  {
+    title: "JavaScript variables are usually written in which type of case?",
+    choices: ["lowercase", "UPPERCASE", "camelCase", "CapitalCase"],
+    answer: "camelCase",
+  },
+
+  {
+    title: "Object properties are made up of pairs of keys and _____?",
+    choices: ["values", "properties", "variables", "arrays"],
+    answer: "values",
+  },
+
+  {
+    title: "The condition in an if / else statement is enclosed within ____.",
+    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+    answer: "parentheses",
+  },
+  {
+    title: "Arrays in Javascript can be used to store ____.?",
+    choices: ["numbers", "objects", "other arrays", "All of the Above"],
+    answer: "All of the Above",
+  },
+];
 // Construct quiz questions container
 const constructQuizContainer = () => {
   const quizContainerDiv = document.createElement("main");
