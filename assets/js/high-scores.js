@@ -29,7 +29,7 @@ const constructHighScoresTable = (item, index) => {
 
 // navigate back to main html document function
 const goBackToQuizPage = () => {
-  location.href = "../../index.html";
+  window.location.href = "./index.html";
 };
 
 // clear high scores function
