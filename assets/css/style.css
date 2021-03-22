@@ -82,6 +82,14 @@
   background-color: rgb(154, 216, 216);
 }
 
+.correct-answer {
+  background-color: green;
+}
+
+.incorrect-answer {
+  background-color: red;
+}
+
 /* Styling for game over container */
 .results-heading-div {
   margin: 20px;

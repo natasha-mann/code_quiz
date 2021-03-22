@@ -87,18 +87,19 @@ const callback = (item, index) => {
   answersDiv.appendChild(answerButton);
   answerButton.addEventListener("click", function () {
     const answer = this.getAttribute("data-answer");
-    checkAnswer(answer);
+    const button = this;
+    checkAnswer(answer, button);
   });
 };
 
 // Check Answer
-const checkAnswer = (answer) => {
+const checkAnswer = (answer, button) => {
   if (answer == questions[questionIndex].answer) {
     score += 5;
-    console.log(answer);
+    button.setAttribute("class", "answer-btn correct-answer");
   } else {
     timerValue = timerValue - 10;
-    console.log(answer);
+    button.setAttribute("class", "answer-btn incorrect-answer");
   }
   displayNextQuestion();
 };
