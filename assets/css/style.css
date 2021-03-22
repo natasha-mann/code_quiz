@@ -49,11 +49,13 @@
   border: none;
   font-size: 24px;
   font-weight: bolder;
+  border-radius: 5%;
 }
 
 /* Styling for quiz question container */
 .questions-div {
   padding: 20px;
+  font-size: 32px;
 }
 
 .answers-div {
@@ -61,13 +63,23 @@
 }
 
 .answer-btn {
+  position: relative;
+  left: 50%;
+  top: 20px;
+  transform: translate(-50%);
+  display: block;
+  margin: 5px;
+  border-radius: 5%;
   padding: 10px;
   background-color: teal;
   border: none;
   font-size: 24px;
   font-weight: bolder;
   width: 200px;
-  margin: 5px 0;
+}
+
+.answer-btn:hover {
+  background-color: rgb(154, 216, 216);
 }
 
 /* Styling for game over container */
