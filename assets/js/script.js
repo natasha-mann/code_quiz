@@ -3,11 +3,11 @@ const startQuizButtonElement = document.getElementById("start-btn");
 const introContainer = document.getElementById("quiz-container");
 const submitScoreBtn = document.getElementById("submit-score-btn");
 
-let timerValue = 1;
+let timerValue = 100;
 let highScores = [];
-let questionIndex = 0;
 
 //to remove or redefine
+let score = 0;
 const finalScore = 20;
 
 // Quiz questions
@@ -42,6 +42,10 @@ const questions = [
   },
 ];
 
+// question variables
+let questionIndex = 0;
+const lastQuestion = questions.length - 1;
+
 // Construct quiz questions container
 const constructQuizContainer = () => {
   const quizContainerDiv = document.createElement("main");
@@ -62,30 +66,49 @@ const constructQuizContainer = () => {
   return quizContainerDiv;
 };
 
-// display a question
+// display a question with answers
 const displayQuestion = () => {
   let currentQuestion = questions[questionIndex];
   const questionsContainerDiv = document.getElementById("questions-div");
   questionsContainerDiv.innerHTML = currentQuestion.title;
-
-  displayAnswers();
-};
-
-// display answers
-const displayAnswers = () => {
-  let currentQuestion = questions[questionIndex];
   let choices = currentQuestion.choices;
-  console.log(choices);
   choices.forEach(callback);
 };
 
-const callback = (item) => {
+// create answer buttons as function to be used in foreach loop
+const callback = (item, index) => {
   const answersDiv = document.getElementById("answers-div");
   const answerButton = document.createElement("button");
   answerButton.setAttribute("class", "answer-btn");
-  answerButton.setAttribute("id", "answer-btn");
+  answerButton.setAttribute("id", index);
+  answerButton.setAttribute("data-answer", item);
   answerButton.textContent = item;
+
   answersDiv.appendChild(answerButton);
+  answerButton.addEventListener("click", function () {
+    const answer = this.getAttribute("data-answer");
+    checkAnswer(answer);
+  });
+};
+
+// Check Answer
+const checkAnswer = (answer) => {
+  if (answer == questions[questionIndex].answer) {
+    score += 5;
+    console.log(answer);
+  } else {
+    timerValue = timerValue - 10;
+    console.log(answer);
+  }
+  displayNextQuestion();
+};
+
+// move through questions
+const displayNextQuestion = () => {
+  if (questions[questionIndex] > lastQuestion) {
+    questionIndex++;
+    displayQuestion();
+  }
 };
 
 // Construct Game OVer container
@@ -208,7 +231,9 @@ const startQuiz = () => {
   // start timer
   loadHighScores();
   displayQuestion();
+
   startTimer();
+  displayNextQuestion();
 };
 
 startQuizButtonElement.addEventListener("click", startQuiz);
