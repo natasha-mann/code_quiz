@@ -3,12 +3,17 @@ const startQuizButtonElement = document.getElementById("start-btn");
 const introContainer = document.getElementById("quiz-container");
 const submitScoreBtn = document.getElementById("submit-score-btn");
 
+// timer starting value
 let timerValue = 30;
+
+// empty array to store highscores
 let highScores = [];
 
-//to remove or redefine
+// starting score
 let score = 0;
-// const finalScore = 20;
+
+// current question
+let questionIndex = 0;
 
 // Quiz questions
 const questions = [
@@ -43,7 +48,6 @@ const questions = [
 ];
 
 // question variables
-let questionIndex = 0;
 const lastQuestion = questions.length - 1;
 
 // Construct quiz questions container
@@ -66,11 +70,11 @@ const constructQuizContainer = () => {
   return quizContainerDiv;
 };
 
-// display a question with answers
+// displays the questions on the screen
 const displayQuestion = () => {
-  let currentQuestion = questions[questionIndex];
+  const currentQuestion = questions[questionIndex];
   const questionsContainerDiv = document.getElementById("questions-div");
-  questionsContainerDiv.innerHTML = currentQuestion.title;
+  questionsContainerDiv.textContent = currentQuestion.title;
   let choices = currentQuestion.choices;
   choices.forEach(callback);
 };
@@ -92,24 +96,26 @@ const callback = (item, index) => {
   });
 };
 
+//
+
 // Check Answer
 const checkAnswer = (answer, button) => {
   if (answer == questions[questionIndex].answer) {
     score += 5;
     button.setAttribute("class", "answer-btn correct-answer");
   } else {
-    timerValue = timerValue - 10;
+    timerValue -= 10;
     button.setAttribute("class", "answer-btn incorrect-answer");
   }
-  displayNextQuestion();
-};
-
-// move through questions
-const displayNextQuestion = () => {
-  if (questions[questionIndex] > lastQuestion) {
-    questionIndex++;
+  const timeOutCallback = () => {
+    questionIndex += 1;
+    if (questionIndex < questions.length) {
+      // remove first question?
+    }
     displayQuestion();
-  }
+    clearInterval(answerTimer);
+  };
+  const answerTimer = setTimeout(timeOutCallback, 1000);
 };
 
 // final score function
@@ -200,13 +206,13 @@ const storeUserScores = () => {
   if (initials !== "") {
     const score = {
       Initials: initials,
-      Score: finalScore,
+      Score: calculateFinalScore(),
     };
     highScores.push(score);
     console.log(highScores);
 
     localStorage.setItem("highScores", JSON.stringify(highScores));
-    location.href = "../../high-scores.html";
+    window.location.href = "./high-scores.html";
   } else {
     alert("Please enter your initials to save your score.");
   }
@@ -225,7 +231,6 @@ loadHighScores = () => {
 // Submit high scores
 const submitScore = (event) => {
   event.preventDefault();
-  console.log("This works yay");
   storeUserScores();
 };
 
@@ -241,7 +246,6 @@ const startQuiz = () => {
   displayQuestion();
 
   startTimer();
-  displayNextQuestion();
 };
 
 startQuizButtonElement.addEventListener("click", startQuiz);
