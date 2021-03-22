@@ -3,12 +3,12 @@ const startQuizButtonElement = document.getElementById("start-btn");
 const introContainer = document.getElementById("quiz-container");
 const submitScoreBtn = document.getElementById("submit-score-btn");
 
-let timerValue = 100;
+let timerValue = 30;
 let highScores = [];
 
 //to remove or redefine
 let score = 0;
-const finalScore = 20;
+// const finalScore = 20;
 
 // Quiz questions
 const questions = [
@@ -112,6 +112,13 @@ const displayNextQuestion = () => {
   }
 };
 
+// final score function
+// --------------- timer value is wrong, need to fix!! --------------------------//
+const calculateFinalScore = () => {
+  const finalScore = score + timerValue;
+  return finalScore;
+};
+
 // Construct Game OVer container
 const constructGameOverContainer = () => {
   const quizContainerDiv = document.createElement("main");
@@ -145,7 +152,7 @@ const constructGameOverContainer = () => {
   resultsContainerDiv.textContent = "Your final score is: ";
   submitScoreBtn.textContent = "Submit";
   // need to define final score
-  finalScoreSpan.textContent = finalScore;
+  finalScoreSpan.textContent = calculateFinalScore();
 
   submitScoreBtn.addEventListener("click", submitScore);
 
