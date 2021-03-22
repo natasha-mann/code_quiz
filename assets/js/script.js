@@ -5,6 +5,7 @@ const submitScoreBtn = document.getElementById("submit-score-btn");
 
 let timerValue = 1;
 let highScores = [];
+let questionIndex = 0;
 
 //to remove or redefine
 const finalScore = 20;
@@ -40,6 +41,7 @@ const questions = [
     answer: "All of the Above",
   },
 ];
+
 // Construct quiz questions container
 const constructQuizContainer = () => {
   const quizContainerDiv = document.createElement("main");
@@ -58,6 +60,32 @@ const constructQuizContainer = () => {
   quizContainerDiv.appendChild(answersDiv);
 
   return quizContainerDiv;
+};
+
+// display a question
+const displayQuestion = () => {
+  let currentQuestion = questions[questionIndex];
+  const questionsContainerDiv = document.getElementById("questions-div");
+  questionsContainerDiv.innerHTML = currentQuestion.title;
+
+  displayAnswers();
+};
+
+// display answers
+const displayAnswers = () => {
+  let currentQuestion = questions[questionIndex];
+  let choices = currentQuestion.choices;
+  console.log(choices);
+  choices.forEach(callback);
+};
+
+const callback = (item) => {
+  const answersDiv = document.getElementById("answers-div");
+  const answerButton = document.createElement("button");
+  answerButton.setAttribute("class", "answer-btn");
+  answerButton.setAttribute("id", "answer-btn");
+  answerButton.textContent = item;
+  answersDiv.appendChild(answerButton);
 };
 
 // Construct Game OVer container
@@ -153,7 +181,7 @@ const storeUserScores = () => {
   }
 };
 
-//Retrieve high scores from local storage and load them into an array called highScoreArray
+// Retrieve high scores from local storage and load them into an array called highScoreArray
 loadHighScores = () => {
   let highScoresArray = localStorage.getItem("highScores");
   if (highScoresArray) {
@@ -174,11 +202,12 @@ const submitScore = (event) => {
 const startQuiz = () => {
   // construct quiz container
   const quizContainerDiv = constructQuizContainer();
-
   document.body.removeChild(introContainer);
   document.body.appendChild(quizContainerDiv);
+
   // start timer
   loadHighScores();
+  displayQuestion();
   startTimer();
 };
 
