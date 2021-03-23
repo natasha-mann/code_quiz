@@ -47,7 +47,7 @@ body {
   position: absolute;
   /* background-color: white; */
   left: 50%;
-  top: 50%;
+  top: 40%;
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 20px;
