@@ -16,9 +16,9 @@ body {
 
 .container {
   width: 60%;
-  position: absolute;
+  position: relative;
   left: 50%;
-  top: 25rem;
+  top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 1rem;
