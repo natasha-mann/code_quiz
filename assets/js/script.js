@@ -115,6 +115,7 @@ const checkAnswer = (answer, button) => {
       displayQuestion();
       clearInterval(answerTimer);
     } else {
+      gameOver();
     }
   };
   const answerTimer = setTimeout(questionDelayTimerCallback, 1000);
@@ -172,6 +173,15 @@ const constructGameOverContainer = () => {
   return quizContainerDiv;
 };
 
+// Game over function
+const gameOver = () => {
+  const gameOverContainer = constructGameOverContainer();
+  const quizContainerDiv = document.getElementById("quiz-container");
+  document.body.removeChild(quizContainerDiv);
+  timerSpanElement.remove();
+  document.body.appendChild(gameOverContainer);
+};
+
 // Timer function
 const startTimer = () => {
   // define callback function for setInterval
@@ -179,15 +189,7 @@ const startTimer = () => {
     timerSpanElement.textContent = timerValue;
     // if no time is left  or all questions are answered, game ends
     if (timerValue === 0 || questionIndex >= questions.length) {
-      // construct end of quiz container
-      const gameOverContainer = constructGameOverContainer();
-
-      // Remove quiz questions container
-      const quizContainerDiv = document.getElementById("quiz-container");
-      document.body.removeChild(quizContainerDiv);
-      timerSpanElement.remove();
-      // append end of quiz container
-      document.body.appendChild(gameOverContainer);
+      gameOver();
       clearInterval(timerInterval);
     }
     if (timerValue > 0) {
