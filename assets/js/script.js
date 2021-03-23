@@ -124,9 +124,6 @@ const checkAnswer = (answer, button) => {
 // final score function
 const calculateFinalScore = () => {
   const finalScore = score + timerValue;
-  console.log(score);
-  console.log(timerValue);
-  console.log(finalScore);
   return finalScore;
 };
 
@@ -190,13 +187,13 @@ const startTimer = () => {
   // define callback function for setInterval
   const timerTick = () => {
     timerSpanElement.textContent = timerValue;
+    if (timerValue > 0) {
+      timerValue -= 1;
+    }
     // if no time is left  or all questions are answered, game ends
     if (timerValue === 0 || questionIndex > questions.length - 1) {
       clearInterval(timerInterval);
       gameOver();
-    }
-    if (timerValue > 0) {
-      timerValue -= 1;
     }
   };
   const timerInterval = setInterval(timerTick, 1000);

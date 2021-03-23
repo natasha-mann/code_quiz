@@ -11,8 +11,6 @@ window.addEventListener("load", (event) => {
 });
 
 const displayHighScores = () => {
-  console.log(highScores);
-
   if (highScores) {
     highScores.forEach(constructHighScoresTable);
   }
