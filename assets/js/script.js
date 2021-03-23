@@ -111,6 +111,8 @@ const checkAnswer = (answer, button) => {
     questionIndex += 1;
     if (questionIndex < questions.length) {
       // remove first question?
+      const answersDiv = document.getElementById("answers-div");
+      answersDiv.innerHTML = "";
     }
     displayQuestion();
     clearInterval(answerTimer);
