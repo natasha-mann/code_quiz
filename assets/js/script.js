@@ -4,7 +4,7 @@ const introContainer = document.getElementById("quiz-container");
 const submitScoreBtn = document.getElementById("submit-score-btn");
 
 // timer starting value
-let timerValue = 30;
+let timerValue = 60;
 
 // empty array to store high scores
 let highScores = [];
@@ -37,7 +37,7 @@ const questions = [
 
   {
     title:
-      "What do we call the values received by a function when it is invoked.",
+      "What do we call the values received by a function when it is invoked?",
     choices: ["variables", "arguments", "parameters", "inputs"],
     answer: "arguments",
   },
@@ -74,11 +74,11 @@ const displayQuestion = () => {
   const questionsContainerDiv = document.getElementById("questions-div");
   questionsContainerDiv.textContent = currentQuestion.title;
   let choices = currentQuestion.choices;
-  choices.forEach(callback);
+  choices.forEach(createChoiceAndAppend);
 };
 
 // create answer buttons as function to be used in foreach loop
-const callback = (item, index) => {
+const createChoiceAndAppend = (item, index) => {
   const answersDiv = document.getElementById("answers-div");
   const answerButton = document.createElement("button");
   answerButton.setAttribute("class", "answer-btn");
@@ -106,7 +106,7 @@ const checkAnswer = (answer, button) => {
     button.setAttribute("class", "answer-btn incorrect-answer");
   }
   const questionDelayTimerCallback = () => {
-    if (questionIndex < questions.length - 1) {
+    if (questionIndex <= questions.length - 1) {
       questionIndex += 1;
       if (questionIndex < questions.length) {
         const answersDiv = document.getElementById("answers-div");
@@ -124,6 +124,9 @@ const checkAnswer = (answer, button) => {
 // final score function
 const calculateFinalScore = () => {
   const finalScore = score + timerValue;
+  console.log(score);
+  console.log(timerValue);
+  console.log(finalScore);
   return finalScore;
 };
 
@@ -188,9 +191,9 @@ const startTimer = () => {
   const timerTick = () => {
     timerSpanElement.textContent = timerValue;
     // if no time is left  or all questions are answered, game ends
-    if (timerValue === 0 || questionIndex >= questions.length) {
-      gameOver();
+    if (timerValue === 0 || questionIndex > questions.length - 1) {
       clearInterval(timerInterval);
+      gameOver();
     }
     if (timerValue > 0) {
       timerValue -= 1;
@@ -203,13 +206,14 @@ const startTimer = () => {
 const storeUserScores = () => {
   // get info from initials input
   let initials = document.getElementById("initials-input").value;
-
+  const finalScore = calculateFinalScore();
+  console.log(finalScore);
   if (initials !== "") {
-    const score = {
+    const userFinalScore = {
       Initials: initials,
-      Score: calculateFinalScore(),
+      Score: finalScore,
     };
-    highScores.push(score);
+    highScores.push(userFinalScore);
     console.log(highScores);
 
     localStorage.setItem("highScores", JSON.stringify(highScores));
@@ -237,12 +241,10 @@ const submitScore = (event) => {
 
 // Start quiz function
 const startQuiz = () => {
-  // construct quiz container
-  const quizContainerDiv = constructQuizContainer();
   document.body.removeChild(introContainer);
+  const quizContainerDiv = constructQuizContainer();
   document.body.appendChild(quizContainerDiv);
 
-  // start timer
   loadHighScores();
   displayQuestion();
   timerSpanElement.textContent = timerValue;
