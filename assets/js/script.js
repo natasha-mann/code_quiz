@@ -98,30 +98,31 @@ const callback = (item, index) => {
 
 //
 
-// Check Answer
+// Check Answer + display next question
 const checkAnswer = (answer, button) => {
   if (answer == questions[questionIndex].answer) {
     score += 5;
     button.setAttribute("class", "answer-btn correct-answer");
   } else {
-    timerValue -= 10;
+    if (timerValue >= 10) {
+      timerValue -= 10;
+    }
+
     button.setAttribute("class", "answer-btn incorrect-answer");
   }
-  const timeOutCallback = () => {
+  const questionDelayTimerCallback = () => {
     questionIndex += 1;
     if (questionIndex < questions.length) {
-      // remove first question?
       const answersDiv = document.getElementById("answers-div");
       answersDiv.innerHTML = "";
     }
     displayQuestion();
     clearInterval(answerTimer);
   };
-  const answerTimer = setTimeout(timeOutCallback, 1000);
+  const answerTimer = setTimeout(questionDelayTimerCallback, 1000);
 };
 
 // final score function
-// --------------- timer value is wrong, need to fix!! --------------------------//
 const calculateFinalScore = () => {
   const finalScore = score + timerValue;
   return finalScore;
@@ -178,23 +179,22 @@ const constructGameOverContainer = () => {
 const startTimer = () => {
   // define callback function for setInterval
   const timerTick = () => {
-    // define timer value
     timerSpanElement.textContent = timerValue;
-    // what happens every second
-    timerValue -= 1;
-
-    // what happens when no time is left?
-    if (timerValue < 0) {
-      clearInterval(timerInterval);
+    // if no time is left  or all questions are answered, game ends
+    if (timerValue === 0 || questionIndex >= questions.length) {
       // construct end of quiz container
       const gameOverContainer = constructGameOverContainer();
 
       // Remove quiz questions container
       const quizContainerDiv = document.getElementById("quiz-container");
       document.body.removeChild(quizContainerDiv);
-
+      timerSpanElement.remove();
       // append end of quiz container
       document.body.appendChild(gameOverContainer);
+      clearInterval(timerInterval);
+    }
+    if (timerValue > 0) {
+      timerValue -= 1;
     }
   };
   const timerInterval = setInterval(timerTick, 1000);
@@ -246,7 +246,7 @@ const startQuiz = () => {
   // start timer
   loadHighScores();
   displayQuestion();
-
+  timerSpanElement.textContent = timerValue;
   startTimer();
 };
 
