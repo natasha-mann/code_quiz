@@ -41,6 +41,9 @@
 }
 
 .btn {
+  text-decoration: none;
+  border-radius: 5%;
+  color: black;
   margin: 20px;
   padding: 20px;
   background-color: teal;

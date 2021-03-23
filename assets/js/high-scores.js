@@ -27,11 +27,6 @@ const constructHighScoresTable = (item, index) => {
   highScoresListContainer.appendChild(highScoreItem);
 };
 
-// navigate back to main html document function
-const goBackToQuizPage = () => {
-  window.location.href = "./index.html";
-};
-
 // clear high scores function
 const clearHighScores = () => {
   localStorage.clear();
@@ -39,5 +34,4 @@ const clearHighScores = () => {
   highScoresContainerDiv.removeChild(highScoresListContainer);
 };
 
-backButtonElement.addEventListener("click", goBackToQuizPage);
 clearHighScoresButtonElement.addEventListener("click", clearHighScores);
