@@ -6,7 +6,7 @@ const submitScoreBtn = document.getElementById("submit-score-btn");
 // timer starting value
 let timerValue = 30;
 
-// empty array to store highscores
+// empty array to store high scores
 let highScores = [];
 
 // starting score
@@ -15,12 +15,12 @@ let score = 0;
 // current question
 let questionIndex = 0;
 
-// Quiz questions
+// Quiz question data
 const questions = [
   {
-    title: "Which of these is not a commonly used data type in Javascript?",
-    choices: ["strings", "booleans", "alerts", "numbers"],
-    answer: "alerts",
+    title: "Which of these is NOT a way to declare a variable in Javascript?",
+    choices: ["const", "let", "set", "var"],
+    answer: "set",
   },
 
   {
@@ -36,19 +36,17 @@ const questions = [
   },
 
   {
-    title: "The condition in an if / else statement is enclosed within ____.",
-    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-    answer: "parentheses",
+    title:
+      "What do we call the values received by a function when it is invoked.",
+    choices: ["variables", "arguments", "parameters", "inputs"],
+    answer: "arguments",
   },
   {
-    title: "Arrays in Javascript can be used to store ____.?",
-    choices: ["numbers", "objects", "other arrays", "All of the Above"],
-    answer: "All of the Above",
+    title: "Which of the following is NOT a Javascript array method?",
+    choices: [".join()", ".pop()", ".unshift()", ".combine()"],
+    answer: ".combine()",
   },
 ];
-
-// question variables
-const lastQuestion = questions.length - 1;
 
 // Construct quiz questions container
 const constructQuizContainer = () => {
@@ -96,8 +94,6 @@ const callback = (item, index) => {
   });
 };
 
-//
-
 // Check Answer + display next question
 const checkAnswer = (answer, button) => {
   if (answer == questions[questionIndex].answer) {
@@ -107,17 +103,19 @@ const checkAnswer = (answer, button) => {
     if (timerValue >= 10) {
       timerValue -= 10;
     }
-
     button.setAttribute("class", "answer-btn incorrect-answer");
   }
   const questionDelayTimerCallback = () => {
-    questionIndex += 1;
-    if (questionIndex < questions.length) {
-      const answersDiv = document.getElementById("answers-div");
-      answersDiv.innerHTML = "";
+    if (questionIndex < questions.length - 1) {
+      questionIndex += 1;
+      if (questionIndex < questions.length) {
+        const answersDiv = document.getElementById("answers-div");
+        answersDiv.innerHTML = "";
+      }
+      displayQuestion();
+      clearInterval(answerTimer);
+    } else {
     }
-    displayQuestion();
-    clearInterval(answerTimer);
   };
   const answerTimer = setTimeout(questionDelayTimerCallback, 1000);
 };
@@ -160,7 +158,6 @@ const constructGameOverContainer = () => {
   headingContainerDiv.textContent = "All done!";
   resultsContainerDiv.textContent = "Your final score is: ";
   submitScoreBtn.textContent = "Submit";
-  // need to define final score
   finalScoreSpan.textContent = calculateFinalScore();
 
   submitScoreBtn.addEventListener("click", submitScore);
@@ -221,7 +218,7 @@ const storeUserScores = () => {
 };
 
 // Retrieve high scores from local storage and load them into an array called highScoreArray
-loadHighScores = () => {
+const loadHighScores = () => {
   let highScoresArray = localStorage.getItem("highScores");
   if (highScoresArray) {
     highScores = JSON.parse(highScoresArray);
