@@ -1,3 +1,20 @@
+:root {
+  --pink: rgb(221, 146, 155);
+  --teal: rgb(82, 181, 178);
+  --darkteal: rgb(73, 171, 168);
+  --grey: rgb(234, 237, 240);
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  width: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: black;
+}
+
 .header-flex-container {
   display: flex;
   justify-content: space-between;
@@ -8,11 +25,16 @@
 
 .high-scores-link {
   text-decoration: none;
+  border-radius: 0.5rem;
   padding: 10px;
   background-color: teal;
   color: black;
   font-size: 24px;
   font-weight: bolder;
+}
+
+.high-scores-link:hover {
+  color: white;
 }
 
 .quiz-container {
@@ -31,8 +53,15 @@
   padding: 30px;
 }
 
+.heading-div h1 {
+  font-size: 5rem;
+  text-decoration: underline teal;
+  text-underline-position: under;
+}
+
 .description {
-  margin-top: 30px;
+  margin: 30px, 0;
+  font-size: 2.3rem;
 }
 
 .start-button-div {
@@ -46,16 +75,23 @@
 .btn {
   padding: 20px;
   background-color: teal;
+  border-radius: 1rem;
   border: none;
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: bolder;
   border-radius: 5%;
+  width: 20rem;
+}
+
+.btn:hover {
+  color: white;
+  width: 19rem;
 }
 
 /* Styling for quiz question container */
 .questions-div {
   padding: 20px;
-  font-size: 32px;
+  font-size: 2.5rem;
 }
 
 .answers-div {
@@ -119,6 +155,7 @@
   padding: 10px;
   background-color: teal;
   border: none;
+  border-radius: 1rem;
   font-size: 18px;
   font-weight: bolder;
 }
