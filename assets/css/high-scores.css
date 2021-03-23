@@ -7,7 +7,7 @@ body {
   height: 100vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: black;
-  background-image: url(./assets/images/background-img.jpg);
+  background-image: url(../images/background-img.jpg);
   background-size: cover;
   background-position: center;
 }
