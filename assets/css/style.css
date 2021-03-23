@@ -11,8 +11,12 @@ html {
 
 body {
   width: 100%;
+  height: 100vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: black;
+  background-image: url(/assets/images/background-img.jpg);
+  background-size: cover;
+  background-position: center;
 }
 
 .header-flex-container {
@@ -41,7 +45,7 @@ body {
   height: 400px;
   width: 60%;
   position: absolute;
-  border: 1px solid black;
+  /* background-color: white; */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
