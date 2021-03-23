@@ -5,13 +5,22 @@ const clearHighScoresButtonElement = document.getElementById(
 const highScoresContainerDiv = document.getElementById("high-scores");
 const highScoresListContainer = document.getElementById("high-scores-list");
 const highScores = JSON.parse(localStorage.getItem("highScores"));
+console.log(highScores);
 
 window.addEventListener("load", (event) => {
   displayHighScores();
 });
 
+// sort scores in descending order
+const orderScores = () => {
+  highScores.sort(function (a, b) {
+    return parseFloat(b.Score) - parseFloat(a.Score);
+  });
+};
+
 const displayHighScores = () => {
   if (highScores) {
+    orderScores();
     highScores.forEach(constructHighScoresTable);
   }
 };
