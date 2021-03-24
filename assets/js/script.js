@@ -206,8 +206,8 @@ const storeUserScores = () => {
   const finalScore = calculateFinalScore();
   if (initials !== "") {
     const userFinalScore = {
-      Initials: initials,
-      Score: finalScore,
+      initials: initials,
+      score: finalScore,
     };
     const highScores = getHighScoresFromLocalStorage();
     highScores.push(userFinalScore);

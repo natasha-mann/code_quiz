@@ -28,7 +28,7 @@ const constructHighScoresListItem = (item, index) => {
   const highScoreItem = document.createElement("li");
   highScoreItem.setAttribute("class", "list-item");
   highScoreItem.textContent =
-    counter + ".   " + item["Initials"] + " -   " + item["Score"];
+    counter + ".   " + item["initials"] + " -   " + item["score"];
   highScoresListContainer.appendChild(highScoreItem);
 };
 
