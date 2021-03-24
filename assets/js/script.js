@@ -206,7 +206,6 @@ const storeUserScores = () => {
   // get info from initials input
   let initials = document.getElementById("initials-input").value;
   const finalScore = calculateFinalScore();
-  console.log(finalScore);
   if (initials !== "") {
     const userFinalScore = {
       Initials: initials,
