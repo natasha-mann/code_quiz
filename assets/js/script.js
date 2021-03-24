@@ -19,7 +19,7 @@ let questionIndex = 0;
 const questions = [
   {
     title: "Which of these is NOT a way to declare a variable in Javascript?",
-    choices: ["const", "let", "set", "var"],
+    choices: ["const", "set", "let", "var"],
     answer: "set",
   },
 
@@ -72,9 +72,11 @@ const constructQuizContainer = () => {
 const displayQuestion = () => {
   const currentQuestion = questions[questionIndex];
   const questionsContainerDiv = document.getElementById("questions-div");
-  questionsContainerDiv.textContent = currentQuestion.title;
-  let choices = currentQuestion.choices;
-  choices.forEach(createChoiceAndAppend);
+  if (questions.length > questionIndex) {
+    questionsContainerDiv.textContent = currentQuestion.title;
+    let choices = currentQuestion.choices;
+    choices.forEach(createChoiceAndAppend);
+  }
 };
 
 // create answer buttons as function to be used in foreach loop
