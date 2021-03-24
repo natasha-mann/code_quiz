@@ -13,22 +13,22 @@ const orderScores = () => {
   });
 };
 
-// render high score table on screen
-const displayHighScores = () => {
-  if (highScores) {
-    orderScores();
-    highScores.forEach(constructHighScoresTable);
-  }
-};
-
 // construct high scores table from data stored in local storage
-const constructHighScoresTable = (item, index) => {
+const constructHighScoresListItem = (item, index) => {
   let counter = index + 1;
   const highScoreItem = document.createElement("li");
   highScoreItem.setAttribute("class", "list-item");
   highScoreItem.textContent =
     counter + ".   " + item["Initials"] + " -   " + item["Score"];
   highScoresListContainer.appendChild(highScoreItem);
+};
+
+// order high score items and render high score table on screen
+const onLoad = () => {
+  if (highScores) {
+    orderScores();
+    highScores.forEach(constructHighScoresListItem);
+  }
 };
 
 // clear high scores function
@@ -39,4 +39,4 @@ const clearHighScores = () => {
 };
 
 clearHighScoresButtonElement.addEventListener("click", clearHighScores);
-window.addEventListener("load", displayHighScores);
+window.addEventListener("load", onLoad);
