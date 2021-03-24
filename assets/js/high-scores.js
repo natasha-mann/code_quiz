@@ -4,10 +4,19 @@ const clearHighScoresButtonElement = document.getElementById(
 );
 const highScoresContainerDiv = document.getElementById("high-scores");
 const highScoresListContainer = document.getElementById("high-scores-list");
-const highScores = JSON.parse(localStorage.getItem("highScores"));
+
+// Get high scores from local storage
+const getHighScoresFromLocalStorage = () => {
+  const highScores = localStorage.getItem("highScores");
+  if (highScores) {
+    return JSON.parse(highScores);
+  } else {
+    return [];
+  }
+};
 
 // sort scores in descending order
-const orderScores = () => {
+const orderScores = (highScores) => {
   highScores.sort(function (a, b) {
     return parseFloat(b.Score) - parseFloat(a.Score);
   });
@@ -25,18 +34,21 @@ const constructHighScoresListItem = (item, index) => {
 
 // order high score items and render high score table on screen
 const onLoad = () => {
+  const highScores = getHighScoresFromLocalStorage();
   if (highScores) {
-    orderScores();
+    orderScores(highScores);
     highScores.forEach(constructHighScoresListItem);
   }
 };
 
+window.addEventListener("load", onLoad);
+
 // clear high scores function
 const clearHighScores = () => {
+  const highScores = getHighScoresFromLocalStorage();
   localStorage.clear();
   highScores.length = 0;
   highScoresContainerDiv.removeChild(highScoresListContainer);
 };
 
 clearHighScoresButtonElement.addEventListener("click", clearHighScores);
-window.addEventListener("load", onLoad);
