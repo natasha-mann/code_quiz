@@ -212,7 +212,6 @@ const storeUserScores = () => {
       Score: finalScore,
     };
     highScores.push(userFinalScore);
-    console.log(highScores);
 
     localStorage.setItem("highScores", JSON.stringify(highScores));
     window.location.href = "./high-scores.html";
