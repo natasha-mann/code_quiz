@@ -1,6 +1,7 @@
 const timerSpanElement = document.getElementById("timer");
 const startQuizButtonElement = document.getElementById("start-btn");
-const introContainer = document.getElementById("quiz-container");
+const mainContainer = document.getElementById("main-container");
+const introContainer = document.getElementById("intro-container");
 const submitScoreBtn = document.getElementById("submit-score-btn");
 
 // timer starting value
@@ -51,7 +52,7 @@ const questions = [
 // Construct quiz questions container
 const constructQuizContainer = () => {
   const quizContainerDiv = document.createElement("main");
-  quizContainerDiv.setAttribute("class", "quiz-container");
+  quizContainerDiv.setAttribute("class", "container");
   quizContainerDiv.setAttribute("id", "quiz-container");
 
   const questionsContainerDiv = document.createElement("div");
@@ -131,9 +132,9 @@ const calculateFinalScore = () => {
 
 // Construct Game OVer container
 const constructGameOverContainer = () => {
-  const quizContainerDiv = document.createElement("main");
-  quizContainerDiv.setAttribute("class", "quiz-container");
-  quizContainerDiv.setAttribute("id", "quiz-container");
+  const gameOverContainerDiv = document.createElement("main");
+  gameOverContainerDiv.setAttribute("class", "container");
+  gameOverContainerDiv.setAttribute("id", "game-over-container");
 
   const headingContainerDiv = document.createElement("div");
   headingContainerDiv.setAttribute("class", "results-heading-div");
@@ -165,23 +166,23 @@ const constructGameOverContainer = () => {
 
   submitScoreBtn.addEventListener("click", submitScore);
 
-  quizContainerDiv.appendChild(headingContainerDiv);
-  quizContainerDiv.appendChild(resultsContainerDiv);
+  gameOverContainerDiv.appendChild(headingContainerDiv);
+  gameOverContainerDiv.appendChild(resultsContainerDiv);
   resultsContainerDiv.appendChild(finalScoreSpan);
-  quizContainerDiv.appendChild(gameOverForm);
+  gameOverContainerDiv.appendChild(gameOverForm);
   gameOverForm.appendChild(initialsInput);
   gameOverForm.appendChild(submitScoreBtn);
 
-  return quizContainerDiv;
+  return gameOverContainerDiv;
 };
 
 // Game over function
 const gameOver = () => {
   const gameOverContainer = constructGameOverContainer();
   const quizContainerDiv = document.getElementById("quiz-container");
-  document.body.removeChild(quizContainerDiv);
+  mainContainer.removeChild(quizContainerDiv);
   timerSpanElement.remove();
-  document.body.appendChild(gameOverContainer);
+  mainContainer.appendChild(gameOverContainer);
 };
 
 // Timer function
@@ -238,9 +239,9 @@ const submitScore = (event) => {
 
 // Start quiz function
 const startQuiz = () => {
-  document.body.removeChild(introContainer);
+  mainContainer.removeChild(introContainer);
   const quizContainerDiv = constructQuizContainer();
-  document.body.appendChild(quizContainerDiv);
+  mainContainer.appendChild(quizContainerDiv);
 
   loadHighScores();
   displayQuestion();
