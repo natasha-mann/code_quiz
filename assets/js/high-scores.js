@@ -5,7 +5,6 @@ const clearHighScoresButtonElement = document.getElementById(
 const highScoresContainerDiv = document.getElementById("high-scores");
 const highScoresListContainer = document.getElementById("high-scores-list");
 const highScores = JSON.parse(localStorage.getItem("highScores"));
-console.log(highScores);
 
 window.addEventListener("load", (event) => {
   displayHighScores();
