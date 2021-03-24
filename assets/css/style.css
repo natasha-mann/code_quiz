@@ -120,10 +120,34 @@ body {
 
 .correct-answer {
   background-color: green;
+  position: relative;
+  left: 50%;
+  top: 20px;
+  transform: translate(-50%);
+  display: block;
+  margin: 0.5rem;
+  border-radius: 5%;
+  padding: 1rem;
+  border: none;
+  font-size: 2.4rem;
+  font-weight: bolder;
+  width: 20rem;
 }
 
 .incorrect-answer {
   background-color: red;
+  position: relative;
+  left: 50%;
+  top: 20px;
+  transform: translate(-50%);
+  display: block;
+  margin: 0.5rem;
+  border-radius: 5%;
+  padding: 1rem;
+  border: none;
+  font-size: 2.4rem;
+  font-weight: bolder;
+  width: 20rem;
 }
 
 /* Styling for game over container */
