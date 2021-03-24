@@ -6,10 +6,6 @@ const highScoresContainerDiv = document.getElementById("high-scores");
 const highScoresListContainer = document.getElementById("high-scores-list");
 const highScores = JSON.parse(localStorage.getItem("highScores"));
 
-window.addEventListener("load", (event) => {
-  displayHighScores();
-});
-
 // sort scores in descending order
 const orderScores = () => {
   highScores.sort(function (a, b) {
@@ -17,6 +13,7 @@ const orderScores = () => {
   });
 };
 
+// render high score table on screen
 const displayHighScores = () => {
   if (highScores) {
     orderScores();
@@ -24,6 +21,7 @@ const displayHighScores = () => {
   }
 };
 
+// construct high scores table from data stored in local storage
 const constructHighScoresTable = (item, index) => {
   let counter = index + 1;
   const highScoreItem = document.createElement("li");
@@ -41,3 +39,4 @@ const clearHighScores = () => {
 };
 
 clearHighScoresButtonElement.addEventListener("click", clearHighScores);
+window.addEventListener("load", displayHighScores);
