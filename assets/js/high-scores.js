@@ -45,8 +45,10 @@ window.addEventListener("load", onLoad);
 // clear high scores function
 const clearHighScores = () => {
   const highScores = getHighScoresFromLocalStorage();
-  localStorage.clear();
-  highScoresContainerDiv.removeChild(highScoresListContainer);
+  if (highScores.length !== 0) {
+    localStorage.clear();
+    highScoresContainerDiv.removeChild(highScoresListContainer);
+  }
 };
 
 clearHighScoresButtonElement.addEventListener("click", clearHighScores);
