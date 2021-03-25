@@ -35,6 +35,11 @@ body {
   padding-top: 3rem;
 }
 
+.info {
+  font-size: 2.4rem;
+  padding: 2rem;
+}
+
 .list-item {
   list-style-type: none;
   text-align: start;

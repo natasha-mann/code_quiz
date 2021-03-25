@@ -34,10 +34,23 @@ const constructHighScoresListItem = (item, index) => {
   highScoresListContainer.appendChild(highScoreItem);
 };
 
+// construct no high scores available div
+const constructNoScoresAvailableDiv = () => {
+  const noHighScoresAvailableDiv = document.createElement("div");
+  noHighScoresAvailableDiv.setAttribute("class", "info");
+  noHighScoresAvailableDiv.textContent = "There are currently no high scores!";
+  highScoresListContainer.appendChild(noHighScoresAvailableDiv);
+  return noHighScoresAvailableDiv;
+};
+
 // order high score items and render high score table on screen
 const onLoad = () => {
   const highScores = orderScores();
-  highScores.forEach(constructHighScoresListItem);
+  if (highScores.length !== 0) {
+    highScores.forEach(constructHighScoresListItem);
+  } else {
+    constructNoScoresAvailableDiv();
+  }
 };
 
 window.addEventListener("load", onLoad);
@@ -45,9 +58,11 @@ window.addEventListener("load", onLoad);
 // clear high scores function
 const clearHighScores = () => {
   const highScores = getHighScoresFromLocalStorage();
+  const noHighScoresAvailableDiv = constructNoScoresAvailableDiv();
   if (highScores.length !== 0) {
     localStorage.clear();
     highScoresContainerDiv.removeChild(highScoresListContainer);
+    highScoresContainerDiv.appendChild(noHighScoresAvailableDiv);
   }
 };
 
