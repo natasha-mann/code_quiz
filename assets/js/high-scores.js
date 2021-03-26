@@ -58,11 +58,9 @@ window.addEventListener("load", onLoad);
 // clear high scores function
 const clearHighScores = () => {
   const highScores = getHighScoresFromLocalStorage();
-  const noHighScoresAvailableDiv = constructNoScoresAvailableDiv();
   if (highScores.length !== 0) {
     localStorage.clear();
     highScoresContainerDiv.removeChild(highScoresListContainer);
-    highScoresContainerDiv.appendChild(noHighScoresAvailableDiv);
   }
 };
 
