@@ -98,12 +98,12 @@ const createChoiceAndAppend = (item, index) => {
 const checkAnswer = (answer, button) => {
   if (answer == questions[questionIndex].answer) {
     score += 5;
-    button.setAttribute("class", "correct-answer");
+    button.setAttribute("class", "answer-btn correct-answer");
   } else {
     if (timerValue >= 10) {
       timerValue -= 10;
     }
-    button.setAttribute("class", "incorrect-answer");
+    button.setAttribute("class", "answer-btn incorrect-answer");
   }
   const questionDelayTimerCallback = () => {
     if (questionIndex <= questions.length - 1) {

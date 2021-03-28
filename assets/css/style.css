@@ -3,7 +3,6 @@ html {
 }
 
 body {
-  width: 100%;
   height: 100vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: black;
@@ -15,6 +14,7 @@ body {
 /* main styling for intro page */
 .header-flex-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   background-color: aquamarine;
   align-items: center;
@@ -37,6 +37,10 @@ body {
 
 .timer {
   font-size: 3rem;
+}
+
+.main-container {
+  width: 95%;
 }
 
 .container {
@@ -120,34 +124,18 @@ body {
 
 .correct-answer {
   background-color: green;
-  position: relative;
-  left: 50%;
-  top: 20px;
-  transform: translate(-50%);
-  display: block;
-  margin: 0.5rem;
-  border-radius: 5%;
-  padding: 1rem;
-  border: none;
-  font-size: 2.4rem;
-  font-weight: bolder;
-  width: 20rem;
+}
+
+.correct-answer:hover {
+  background-color: green;
 }
 
 .incorrect-answer {
   background-color: red;
-  position: relative;
-  left: 50%;
-  top: 20px;
-  transform: translate(-50%);
-  display: block;
-  margin: 0.5rem;
-  border-radius: 5%;
-  padding: 1rem;
-  border: none;
-  font-size: 2.4rem;
-  font-weight: bolder;
-  width: 20rem;
+}
+
+.incorrect-answer:hover {
+  background-color: red;
 }
 
 /* Styling for game over container */
@@ -184,3 +172,42 @@ body {
   font-weight: bolder;
   margin: 0.5rem;
 }
+
+@media screen and (max-width: 560px) {
+  .header-flex-container {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  .link-div {
+    margin-top: 1rem;
+    padding-top: 2rem;
+  }
+
+  .timer-div {
+    margin-top: 2rem;
+  }
+
+  .high-scores-link {
+    font-size: 2rem;
+    padding: 1.5rem;
+  }
+
+  .timer {
+    padding: 1.5rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .container {
+    height: 40rem;
+    width: 75%;
+    position: absolute;
+    left: 50%;
+    top: 35rem;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 2rem;
+  }
+} ;
