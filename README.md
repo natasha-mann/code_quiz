@@ -23,6 +23,7 @@ The final score is calculated from total points scored plus the time remaining o
 
 If I had time to work on this project further, there are a few elements I would like to change or add. Primarily, I would aim to implement the following features:
 
+- Lock the answer selectors so that only one choice can be chosen per question.
 - Refactor the Javascript to implement jQuery framework.
 - Add sound effects to highlight if the selected answer is correct or incorrect.
 - Additional questions to be added
