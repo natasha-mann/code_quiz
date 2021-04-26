@@ -1,26 +1,19 @@
-html {
-  font-size: 10px;
+:root {
+  --pink: rgb(221, 146, 155);
+  --teal: rgb(82, 181, 178);
+  --darkteal: rgb(73, 171, 168);
+  --grey: rgb(234, 237, 240);
 }
 
 body {
   height: 100vh;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: black;
   background-image: url(../images/background-img.jpg);
   background-size: cover;
   background-position: center;
 }
 
 /* main styling for intro page */
-.header-flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: aquamarine;
-  align-items: center;
-  padding: 2rem;
-}
-
+/* 
 .high-scores-link {
   text-decoration: none;
   border-radius: 0.5rem;
@@ -74,9 +67,9 @@ body {
   padding: 3rem;
   left: 50%;
   transform: translate(-50%);
-}
+} */
 
-.btn {
+/* .btn {
   padding: 2rem;
   background-color: teal;
   border-radius: 1rem;
@@ -85,15 +78,15 @@ body {
   font-weight: bolder;
   border-radius: 5%;
   width: 20rem;
-}
+} */
 
-.btn:hover {
+/* .btn:hover {
   color: white;
   width: 19rem;
-}
+} */
 
 /* Styling for quiz question container */
-.questions-div {
+/* .questions-div {
   padding: 2rem;
   font-size: 2.5rem;
 }
@@ -136,10 +129,10 @@ body {
 
 .incorrect-answer:hover {
   background-color: red;
-}
+} */
 
 /* Styling for game over container */
-.results-heading-div {
+/* .results-heading-div {
   margin: 2rem;
   font-size: 3.2rem;
 }
@@ -171,15 +164,9 @@ body {
   font-size: 1.8rem;
   font-weight: bolder;
   margin: 0.5rem;
-}
+} */
 
 @media screen and (max-width: 560px) {
-  .header-flex-container {
-    flex-direction: column;
-    justify-content: center;
-    padding: 0.5rem;
-  }
-
   .link-div {
     margin-top: 1rem;
     padding-top: 2rem;
@@ -198,16 +185,5 @@ body {
     padding: 1.5rem;
     font-size: 2.5rem;
     font-weight: bold;
-  }
-
-  .container {
-    height: 40rem;
-    width: 75%;
-    position: absolute;
-    left: 50%;
-    top: 35rem;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    padding: 2rem;
   }
 } ;

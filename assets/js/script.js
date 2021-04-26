@@ -40,10 +40,12 @@ const questions = [
 
 // Construct quiz questions container
 const constructQuizContainer = () => {
-  const quizContainerDiv = `<main class="container" id="quiz-container">
-    <div class="questions-div" id="questions-div"></div>
-    <div class="answers-div" id="answers-div"></div>
-  </main>`;
+  const quizContainerDiv = `
+  <h2 class="card-header py-3 text-center timer">Time left: <span id="timer">0</span></h2>
+  <div class="card-body">
+    <p class="card-text py-3 text-center" id="questions-div"></p>
+    <div class="d-grid gap-2 col-6 mx-auto py-3 answers-div" id="answers-div"></div>
+  </div>`;
 
   $("#main-container").append(quizContainerDiv);
   displayQuestion();
@@ -63,7 +65,7 @@ const displayQuestion = () => {
 // create answer buttons as function to be used in foreach loop
 const createChoiceAndAppend = (item, index) => {
   $("#answers-div").append(`
-<button class="answer-btn" id="${index}" data-answer="${item}">${item}</button>
+<button class="btn btn-primary" type="button" id="${index}" data-answer="${item}">${item}</button>
 `);
 };
 
@@ -73,12 +75,16 @@ const checkAnswer = (event) => {
   const answer = $(chosenAnswer).data("answer");
   if (answer == questions[questionIndex].answer) {
     score += 5;
-    $(chosenAnswer).addClass("answer-btn correct-answer");
+    if ($(chosenAnswer).is("button")) {
+      $(chosenAnswer).addClass("btn-success");
+    }
   } else {
     if (timerValue >= 10) {
       timerValue -= 10;
     }
-    $(chosenAnswer).addClass("answer-btn incorrect-answer");
+    if ($(chosenAnswer).is("button")) {
+      $(chosenAnswer).addClass("btn-danger");
+    }
   }
   const questionDelayTimerCallback = () => {
     if (questionIndex <= questions.length - 1) {
@@ -102,22 +108,24 @@ const calculateFinalScore = () => (finalScore = score + timerValue);
 const constructGameOverContainer = () => {
   const finalScore = calculateFinalScore();
 
-  const gameOver = `<main class="container" id="game-over-container">
-    <div class="results-heading-div">Game Over!</div>
-    <div class="results-info">
-      Your final score is: <span id="final-score">${finalScore}</span>
-    </div>
-    <form class="game-over-form" id="game-over-form">
+  const gameOver = `<h2 class="card-header py-3 text-center timer">Game Over!</h2>
+  <div class="card-body">
+    <p class="card-text py-3 text-center"> Your final score is: <span id="final-score">${finalScore}</span></p>
+    <form id="game-over-form">
+    <div class="mb-3">
       <input
         placeholder="Enter Initials"
         id="initials-input"
-        class="initials-input"
+        class="form-control"
       ></input>
-      <button type="submit" id="submit-score-btn" class="submit-score-btn">
+      </div>
+      <div class="d-grid gap-2 col-6 mx-auto py-3">
+      <button type="submit" id="submit-score-btn" class="btn btn-primary">
         Submit
       </button>
+      </div>
     </form>
-  </main>`;
+  </div>`;
 
   $("#main-container").append(gameOver);
   $("#submit-score-btn").click(submitScore);
