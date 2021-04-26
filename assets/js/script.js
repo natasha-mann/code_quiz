@@ -119,9 +119,8 @@ const constructGameOverContainer = () => {
     </form>
   </main>`;
 
-  $("#submit-score-btn").click(submitScore);
-
   $("#main-container").append(gameOver);
+  $("#submit-score-btn").click(submitScore);
 };
 
 // Game over function
@@ -152,8 +151,9 @@ const startTimer = () => {
 const storeUserScores = () => {
   // get info from initials input
   const initials = $("#initials-input").val();
+  console.log(initials);
   const finalScore = calculateFinalScore();
-  if (initials !== "") {
+  if (initials) {
     const userFinalScore = {
       initials: initials,
       score: finalScore,

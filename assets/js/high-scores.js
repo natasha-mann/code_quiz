@@ -1,10 +1,3 @@
-const backButtonElement = document.getElementById("back-btn");
-const clearHighScoresButtonElement = document.getElementById(
-  "clear-highscores-btn"
-);
-const highScoresContainerDiv = document.getElementById("high-scores");
-const highScoresListContainer = document.getElementById("high-scores-list");
-
 // Get high scores from local storage
 const getHighScoresFromLocalStorage = () => {
   const highScores = localStorage.getItem("highScores");
@@ -27,24 +20,22 @@ const orderScores = () => {
 // construct high scores table from data stored in local storage
 const constructHighScoresListItem = (item, index) => {
   let counter = index + 1;
-  const highScoreItem = document.createElement("li");
-  highScoreItem.setAttribute("class", "list-item");
-  highScoreItem.textContent =
-    counter + ".   " + item["initials"] + " -   " + item["score"];
-  highScoresListContainer.appendChild(highScoreItem);
+
+  const highScoreItem = `<li class="list-item">${counter}. ${item.initials} - ${item.score}</li>`;
+
+  $("#high-scores").append(highScoreItem);
 };
 
 // construct no high scores available div
 const constructNoScoresAvailableDiv = () => {
-  const noHighScoresAvailableDiv = document.createElement("div");
-  noHighScoresAvailableDiv.setAttribute("class", "info");
-  noHighScoresAvailableDiv.textContent = "There are currently no high scores!";
-  highScoresListContainer.appendChild(noHighScoresAvailableDiv);
-  return noHighScoresAvailableDiv;
+  const noHighScoresAvailableDiv = `
+  <div class="info">There are currently no high scores!</div>
+  `;
+  $("#high-scores").append(noHighScoresAvailableDiv);
 };
 
 // order high score items and render high score table on screen
-const onLoad = () => {
+const initialisePage = () => {
   const highScores = orderScores();
   if (highScores.length !== 0) {
     highScores.forEach(constructHighScoresListItem);
@@ -53,15 +44,16 @@ const onLoad = () => {
   }
 };
 
-window.addEventListener("load", onLoad);
+$(document).ready(initialisePage);
 
 // clear high scores function
 const clearHighScores = () => {
   const highScores = getHighScoresFromLocalStorage();
   if (highScores.length !== 0) {
     localStorage.clear();
-    highScoresContainerDiv.removeChild(highScoresListContainer);
+    $("#high-scores").empty();
+    constructNoScoresAvailableDiv();
   }
 };
 
-clearHighScoresButtonElement.addEventListener("click", clearHighScores);
+$("#clear-highscores-btn").click(clearHighScores);
