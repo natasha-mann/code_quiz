@@ -48,30 +48,21 @@ const questions = [
 
 // Construct quiz questions container
 const constructQuizContainer = () => {
-  const quizContainerDiv = document.createElement("main");
-  quizContainerDiv.setAttribute("class", "container");
-  quizContainerDiv.setAttribute("id", "quiz-container");
+  const quizContainerDiv = `<main class="container" id="quiz-container">
+    <div class="questions-div" id="questions-div"></div>
+    <div class="answers-div" id="answers-div"></div>
+  </main>`;
 
-  const questionsContainerDiv = document.createElement("div");
-  questionsContainerDiv.setAttribute("class", "questions-div");
-  questionsContainerDiv.setAttribute("id", "questions-div");
-
-  const answersDiv = document.createElement("div");
-  answersDiv.setAttribute("class", "answers-div");
-  answersDiv.setAttribute("id", "answers-div");
-
-  quizContainerDiv.appendChild(questionsContainerDiv);
-  quizContainerDiv.appendChild(answersDiv);
-
-  return quizContainerDiv;
+  $("#main-container").append(quizContainerDiv);
+  displayQuestion();
+  $("#answers-div").click(checkAnswer);
 };
 
 // displays the questions on the screen
 const displayQuestion = () => {
   const currentQuestion = questions[questionIndex];
-  const questionsContainerDiv = document.getElementById("questions-div");
   if (questions.length > questionIndex) {
-    questionsContainerDiv.textContent = currentQuestion.title;
+    $("#questions-div").text(currentQuestion.title);
     let choices = currentQuestion.choices;
     choices.forEach(createChoiceAndAppend);
   }
@@ -79,38 +70,30 @@ const displayQuestion = () => {
 
 // create answer buttons as function to be used in foreach loop
 const createChoiceAndAppend = (item, index) => {
-  const answersDiv = document.getElementById("answers-div");
-  const answerButton = document.createElement("button");
-  answerButton.setAttribute("class", "answer-btn");
-  answerButton.setAttribute("id", index);
-  answerButton.setAttribute("data-answer", item);
-  answerButton.textContent = item;
-
-  answersDiv.appendChild(answerButton);
-  answerButton.addEventListener("click", function () {
-    const answer = this.getAttribute("data-answer");
-    const button = this;
-    checkAnswer(answer, button);
-  });
+  $("#answers-div").append(`
+<button class="answer-btn" id="${index}" data-answer="${item}">${item}</button>
+`);
 };
 
 // Check Answer + display next question
-const checkAnswer = (answer, button) => {
+const checkAnswer = (event) => {
+  const chosenAnswer = event.target;
+  const answer = $(chosenAnswer).data("answer");
+  console.log(questionIndex, questions[questionIndex].answer);
   if (answer == questions[questionIndex].answer) {
     score += 5;
-    button.setAttribute("class", "answer-btn correct-answer");
+    $(chosenAnswer).addClass("answer-btn correct-answer");
   } else {
     if (timerValue >= 10) {
       timerValue -= 10;
     }
-    button.setAttribute("class", "answer-btn incorrect-answer");
+    $(chosenAnswer).addClass("answer-btn incorrect-answer");
   }
   const questionDelayTimerCallback = () => {
     if (questionIndex <= questions.length - 1) {
       questionIndex += 1;
       if (questionIndex < questions.length) {
-        const answersDiv = document.getElementById("answers-div");
-        answersDiv.innerHTML = "";
+        $("#answers-div").empty();
       }
       displayQuestion();
       clearInterval(answerTimer);
@@ -118,75 +101,50 @@ const checkAnswer = (answer, button) => {
       gameOver();
     }
   };
-  const answerTimer = setTimeout(questionDelayTimerCallback, 1000);
+  const answerTimer = setTimeout(questionDelayTimerCallback, 500);
 };
 
 // final score function
-const calculateFinalScore = () => {
-  const finalScore = score + timerValue;
-  return finalScore;
-};
+const calculateFinalScore = () => (finalScore = score + timerValue);
 
 // Construct Game OVer container
 const constructGameOverContainer = () => {
-  const gameOverContainerDiv = document.createElement("main");
-  gameOverContainerDiv.setAttribute("class", "container");
-  gameOverContainerDiv.setAttribute("id", "game-over-container");
+  const finalScore = calculateFinalScore();
 
-  const headingContainerDiv = document.createElement("div");
-  headingContainerDiv.setAttribute("class", "results-heading-div");
+  const gameOver = `<main class="container" id="game-over-container">
+    <div class="results-heading-div">Game Over!</div>
+    <div class="results-info">
+      Your final score is: <span id="final-score">${finalScore}</span>
+    </div>
+    <form class="game-over-form" id="game-over-form">
+      <input
+        placeholder="Enter Initials"
+        id="initials-input"
+        class="initials-input"
+      ></input>
+      <button type="submit" id="submit-score-btn" class="submit-score-btn">
+        Submit
+      </button>
+    </form>
+  </main>`;
 
-  const resultsContainerDiv = document.createElement("div");
-  resultsContainerDiv.setAttribute("class", "results-info");
+  $("#submit-score-btn").click(submitScore);
 
-  const finalScoreSpan = document.createElement("span");
-  finalScoreSpan.setAttribute("id", "final-score");
-
-  const gameOverForm = document.createElement("form");
-  gameOverForm.setAttribute("id", "game-over-form");
-  gameOverForm.setAttribute("class", "game-over-form");
-
-  const initialsInput = document.createElement("input");
-  initialsInput.setAttribute("placeholder", "Enter Initials");
-  initialsInput.setAttribute("id", "initials-input");
-  initialsInput.setAttribute("class", "initials-input");
-
-  const submitScoreBtn = document.createElement("button");
-  submitScoreBtn.setAttribute("type", "submit");
-  submitScoreBtn.setAttribute("id", "submit-score-btn");
-  submitScoreBtn.setAttribute("class", "submit-score-btn");
-
-  headingContainerDiv.textContent = "All done!";
-  resultsContainerDiv.textContent = "Your final score is: ";
-  submitScoreBtn.textContent = "Submit";
-  finalScoreSpan.textContent = calculateFinalScore();
-
-  submitScoreBtn.addEventListener("click", submitScore);
-
-  gameOverContainerDiv.appendChild(headingContainerDiv);
-  gameOverContainerDiv.appendChild(resultsContainerDiv);
-  resultsContainerDiv.appendChild(finalScoreSpan);
-  gameOverContainerDiv.appendChild(gameOverForm);
-  gameOverForm.appendChild(initialsInput);
-  gameOverForm.appendChild(submitScoreBtn);
-
-  return gameOverContainerDiv;
+  $("#main-container").append(gameOver);
 };
 
 // Game over function
 const gameOver = () => {
-  const gameOverContainer = constructGameOverContainer();
-  const quizContainerDiv = document.getElementById("quiz-container");
-  mainContainer.removeChild(quizContainerDiv);
-  timerSpanElement.remove();
-  mainContainer.appendChild(gameOverContainer);
+  $("#main-container").empty();
+  $("#timer").remove();
+  constructGameOverContainer();
 };
 
 // Timer function
 const startTimer = () => {
   // define callback function for setInterval
   const timerTick = () => {
-    timerSpanElement.textContent = timerValue;
+    $("#timer").text(timerValue);
     if (timerValue > 0) {
       timerValue -= 1;
     }
@@ -202,7 +160,7 @@ const startTimer = () => {
 // Log high scores to local storage
 const storeUserScores = () => {
   // get info from initials input
-  let initials = document.getElementById("initials-input").value;
+  const initials = $("#initials-input").val();
   const finalScore = calculateFinalScore();
   if (initials !== "") {
     const userFinalScore = {
@@ -236,13 +194,11 @@ const submitScore = (event) => {
 
 // Start quiz function
 const startQuiz = () => {
-  mainContainer.removeChild(introContainer);
-  const quizContainerDiv = constructQuizContainer();
-  mainContainer.appendChild(quizContainerDiv);
+  $("#main-container").empty();
+  constructQuizContainer();
 
-  displayQuestion();
   timerSpanElement.textContent = timerValue;
   startTimer();
 };
 
-startQuizButtonElement.addEventListener("click", startQuiz);
+$("#start-btn").click(startQuiz);
