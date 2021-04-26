@@ -1,16 +1,8 @@
-const timerSpanElement = document.getElementById("timer");
-const startQuizButtonElement = document.getElementById("start-btn");
-const mainContainer = document.getElementById("main-container");
-const introContainer = document.getElementById("intro-container");
-const submitScoreBtn = document.getElementById("submit-score-btn");
-
-// timer starting value
+// Global Variables
 let timerValue = 60;
 
-// starting score
 let score = 0;
 
-// current question
 let questionIndex = 0;
 
 // Quiz question data
@@ -79,7 +71,6 @@ const createChoiceAndAppend = (item, index) => {
 const checkAnswer = (event) => {
   const chosenAnswer = event.target;
   const answer = $(chosenAnswer).data("answer");
-  console.log(questionIndex, questions[questionIndex].answer);
   if (answer == questions[questionIndex].answer) {
     score += 5;
     $(chosenAnswer).addClass("answer-btn correct-answer");
@@ -197,7 +188,7 @@ const startQuiz = () => {
   $("#main-container").empty();
   constructQuizContainer();
 
-  timerSpanElement.textContent = timerValue;
+  $("#timer").text(timerValue);
   startTimer();
 };
 
