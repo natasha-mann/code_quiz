@@ -76,6 +76,7 @@ const checkAnswer = (event) => {
   if (answer == questions[questionIndex].answer) {
     score += 5;
     if ($(chosenAnswer).is("button")) {
+      $(chosenAnswer).removeClass("btn-primary");
       $(chosenAnswer).addClass("btn-success");
     }
   } else {
@@ -83,6 +84,7 @@ const checkAnswer = (event) => {
       timerValue -= 10;
     }
     if ($(chosenAnswer).is("button")) {
+      $(chosenAnswer).removeClass("btn-primary");
       $(chosenAnswer).addClass("btn-danger");
     }
   }
