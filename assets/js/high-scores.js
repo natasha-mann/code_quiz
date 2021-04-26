@@ -21,7 +21,7 @@ const orderScores = () => {
 const constructHighScoresListItem = (item, index) => {
   let counter = index + 1;
 
-  const highScoreItem = `<li class="list-item">${counter}. ${item.initials} - ${item.score}</li>`;
+  const highScoreItem = `<li class="list-group-item list-item">${counter}. ${item.initials} - ${item.score}</li>`;
 
   $("#high-scores").append(highScoreItem);
 };
@@ -29,7 +29,7 @@ const constructHighScoresListItem = (item, index) => {
 // construct no high scores available div
 const constructNoScoresAvailableDiv = () => {
   const noHighScoresAvailableDiv = `
-  <div class="info">There are currently no high scores!</div>
+  <div class="card-text py-3 text-center">There are currently no high scores!</div>
   `;
   $("#high-scores").append(noHighScoresAvailableDiv);
 };
