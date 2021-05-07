@@ -79,8 +79,10 @@ const checkAnswer = (event) => {
 };
 
 // final score function
-const calculateFinalScore = () => (finalScore = score + timerValue);
-
+const calculateFinalScore = () => {
+  const finalScore = score + timerValue;
+  return finalScore;
+};
 // Construct Game OVer container
 const constructGameOverContainer = () => {
   const finalScore = calculateFinalScore();
