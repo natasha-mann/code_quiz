@@ -32,7 +32,7 @@ const displayQuestion = () => {
   const currentQuestion = questions[questionIndex];
   if (questions.length > questionIndex) {
     $("#questions-div").text(currentQuestion.title);
-    let choices = currentQuestion.choices;
+    const choices = currentQuestion.choices;
     choices.forEach(createChoiceAndAppend);
   }
 };
