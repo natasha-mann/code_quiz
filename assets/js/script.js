@@ -1,3 +1,9 @@
+import {
+  javascriptQuestions,
+  htmlQuestions,
+  cssQuestions,
+} from "../../utils/questions.js";
+
 // Global Variables
 let timerValue = 60;
 
@@ -5,8 +11,10 @@ let score = 0;
 
 let questionIndex = 0;
 
+let questions;
+
 // Construct quiz questions container
-const constructQuizContainer = () => {
+const constructQuizContainer = (questions) => {
   const quizContainerDiv = `
   <h2 class="card-header py-3 text-center timer">Time left: <span id="timer">0</span></h2>
   <div class="card-body">
@@ -160,13 +168,29 @@ const submitScore = (event) => {
   storeUserScores();
 };
 
+const selectQuestions = (javascriptQuestions, htmlQuestions, cssQuestions) => {
+  const selectedOption = $("#questionsList").find(":selected").val();
+
+  if (selectedOption === "javascript") {
+    return javascriptQuestions;
+  } else if (selectedOption === "html") {
+    return htmlQuestions;
+  } else if (selectedOption === "css") {
+    return cssQuestions;
+  }
+};
+
 // Start quiz function
-const startQuiz = () => {
+const onSubmit = (event) => {
+  event.preventDefault();
+
+  questions = selectQuestions(javascriptQuestions, htmlQuestions, cssQuestions);
+
   $("#main-container").empty();
-  constructQuizContainer();
+  constructQuizContainer(questions);
 
   $("#timer").text(timerValue);
   startTimer();
 };
 
-$("#start-btn").click(startQuiz);
+$("#start-form").on("submit", onSubmit);

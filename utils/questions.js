@@ -104,3 +104,5 @@ const cssQuestions = [
     answer: "#demo",
   },
 ];
+
+export { javascriptQuestions, htmlQuestions, cssQuestions };

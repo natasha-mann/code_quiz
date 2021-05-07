@@ -50,11 +50,25 @@
                 remaining time. Good luck!
               </p>
 
-              <div class="d-grid gap-2 col-6 mx-auto py-3">
-                <button class="btn btn-primary" id="start-btn" type="button">
-                  START QUIZ
-                </button>
-              </div>
+              <form id="start-form">
+                <div class="d-grid gap-2 col-6 mx-auto py-3">
+                  <select class="custom-select py-2 my-3" id="questionsList">
+                    <option class="text-center" selected>
+                      Select your quiz topic here:
+                    </option>
+                    <option value="javascript">Javascript</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                  </select>
+                  <button
+                    class="btn btn-primary p-2"
+                    id="start-btn"
+                    type="submit"
+                  >
+                    START QUIZ
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -71,6 +85,6 @@
       integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
       crossorigin="anonymous"
     ></script>
-    <script src="assets/js/script.js"></script>
+    <script type="module" src="assets/js/script.js"></script>
   </body>
 </html>
