@@ -1,6 +1,6 @@
 <h1>Code Quiz</h1>
 
-<h2> Table of Contents </h2>
+  <h2> Table of Contents </h2>
 
 - [Project Link](#project-link)
 - [About the Project](#about-the-project)

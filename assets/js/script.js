@@ -5,39 +5,6 @@ let score = 0;
 
 let questionIndex = 0;
 
-// Quiz question data
-const questions = [
-  {
-    title: "Which of these is NOT a way to declare a variable in Javascript?",
-    choices: ["const", "set", "let", "var"],
-    answer: "set",
-  },
-
-  {
-    title: "JavaScript variables are usually written in which type of case?",
-    choices: ["lowercase", "UPPERCASE", "camelCase", "CapitalCase"],
-    answer: "camelCase",
-  },
-
-  {
-    title: "Object properties are made up of pairs of keys and _____?",
-    choices: ["values", "properties", "variables", "arrays"],
-    answer: "values",
-  },
-
-  {
-    title:
-      "What do we call the values received by a function when it is invoked?",
-    choices: ["variables", "arguments", "parameters", "inputs"],
-    answer: "arguments",
-  },
-  {
-    title: "Which of the following is NOT a Javascript array method?",
-    choices: [".join()", ".pop()", ".unshift()", ".combine()"],
-    answer: ".combine()",
-  },
-];
-
 // Construct quiz questions container
 const constructQuizContainer = () => {
   const quizContainerDiv = `
