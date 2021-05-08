@@ -6,13 +6,17 @@ import {
 
 // Global Variables
 // dynamically build timer?
-let timerValue = 60;
+let timerValue;
 
 let score = 0;
 
 let questionIndex = 0;
 
 let questions;
+
+const setTimer = (questions) => {
+  return (timerValue = questions.length * 10);
+};
 
 // Construct quiz questions container
 const constructQuizContainer = (questions) => {
@@ -192,7 +196,7 @@ const onSubmit = (event) => {
   if (questions) {
     $("#main-container").empty();
     constructQuizContainer(questions);
-
+    setTimer(questions);
     $("#timer").text(timerValue);
     startTimer();
   } else {
