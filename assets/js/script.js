@@ -5,6 +5,7 @@ import {
 } from "../../utils/questions.js";
 
 // Global Variables
+// dynamically build timer?
 let timerValue = 60;
 
 let score = 0;
@@ -138,7 +139,7 @@ const startTimer = () => {
 const storeUserScores = () => {
   // get info from initials input
   const initials = $("#initials-input").val();
-  console.log(initials);
+
   const finalScore = calculateFinalScore();
   if (initials) {
     const userFinalScore = {
@@ -188,11 +189,15 @@ const onSubmit = (event) => {
 
   questions = selectQuestions(javascriptQuestions, htmlQuestions, cssQuestions);
 
-  $("#main-container").empty();
-  constructQuizContainer(questions);
+  if (questions) {
+    $("#main-container").empty();
+    constructQuizContainer(questions);
 
-  $("#timer").text(timerValue);
-  startTimer();
+    $("#timer").text(timerValue);
+    startTimer();
+  } else {
+    $("#start-btn").popover("show");
+  }
 };
 
 $("#start-form").on("submit", onSubmit);
