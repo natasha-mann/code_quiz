@@ -12,9 +12,6 @@ body {
   background-position: center;
 }
 
-#selectContainer {
-}
-
 .btn {
   background-color: var(--teal);
   border: none;
