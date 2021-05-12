@@ -120,7 +120,6 @@ const constructGameOverModal = (questions) => {
 
 const constructGameOverContainer = () => {
   const finalScore = calculateFinalScore();
-  const modal = constructGameOverModal(questions);
 
   const gameOver = `
   <h2 class="card-header py-3 text-center timer">Quiz Complete!</h2>
@@ -152,6 +151,8 @@ const constructGameOverContainer = () => {
     </div>`;
 
   $("#main-container").append(gameOver);
+
+  const modal = constructGameOverModal(questions);
   $(modal).prependTo("body");
 
   const showModal = () => {
