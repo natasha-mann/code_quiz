@@ -88,12 +88,51 @@ const calculateFinalScore = () => {
   return finalScore;
 };
 
+const constructGameOverModal = (questions) => {
+  const generateAnswerTable = (each) => {
+    return `
+    <li><span class="fw-bold">Question: </span><span class="fw-normal">${each.title}</span> </li>
+    <p><span class="fw-bold">Answer: </span> <span class="fw-normal">${each.answer}</span></p>
+    `;
+  };
+  const questionListItems = questions.map(generateAnswerTable);
+
+  return `
+  <div class="modal fade" tabindex="-1"  id="answersModal" aria-labelledby="answersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="answersModalLabel">Correct Answers</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            ${questionListItems.join("")}
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+};
+
 const constructGameOverContainer = () => {
   const finalScore = calculateFinalScore();
+  const modal = constructGameOverModal(questions);
 
   const gameOver = `<h2 class="card-header py-3 text-center timer">Quiz Complete!</h2>
   <div class="card-body">
+    <div class="d-grid gap-2 col-4 mx-auto py-3">
+      <button id="correct-answers-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answersModal" data-bs-whatever="@mdo">
+        See correct answers
+      </button>
+      ${modal}
+    </div>
+
     <p class="card-text py-3 text-center"> Your final score is: <span id="final-score">${finalScore}</span></p>
+    
     <form id="game-over-form">
     <div class="mb-3">
       <input
@@ -111,6 +150,13 @@ const constructGameOverContainer = () => {
   </div>`;
 
   $("#main-container").append(gameOver);
+
+  const showModal = () => {
+    $("#answersModal").show();
+  };
+
+  $("#correct-answers-btn").click(showModal);
+
   $("#submit-score-btn").click(submitScore);
 };
 
@@ -210,6 +256,7 @@ const onSubmit = (event) => {
   selectQuestions(javascriptQuestions, htmlQuestions, cssQuestions);
   questions = shuffleArray(questions);
 
+  console.log(questions);
   if (questions) {
     $("#main-container").empty();
     constructQuizContainer(questions);
