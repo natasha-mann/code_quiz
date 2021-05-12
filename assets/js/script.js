@@ -209,7 +209,6 @@ const onSubmit = (event) => {
 
   selectQuestions(javascriptQuestions, htmlQuestions, cssQuestions);
   questions = shuffleArray(questions);
-  console.log(questions);
 
   if (questions) {
     $("#main-container").empty();
