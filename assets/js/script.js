@@ -257,7 +257,7 @@ const onSubmit = (event) => {
   questions = shuffleArray(questions);
 
   console.log(questions);
-  if (questions) {
+  if (questions.length) {
     $("#main-container").empty();
     constructQuizContainer(questions);
 
