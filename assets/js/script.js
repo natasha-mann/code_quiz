@@ -11,7 +11,7 @@ let score = 0;
 
 let questionIndex = 0;
 
-let questions;
+let questions = [];
 
 const setTimer = (questions) => {
   return (timerValue = questions.length * 10);

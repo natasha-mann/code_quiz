@@ -38,7 +38,15 @@
       <div class="row">
         <div class="col-8">
           <div
-            class="card w-50 position-absolute top-50 start-50 translate-middle p-2"
+            class="
+              card
+              w-50
+              position-absolute
+              top-50
+              start-50
+              translate-middle
+              p-2
+            "
             id="main-container"
           >
             <h1 class="card-header py-3 text-center">Code Quiz</h1>
@@ -51,15 +59,50 @@
               </p>
 
               <form id="start-form">
-                <div class="d-grid gap-2 lg-col-6 sm-col-12 mx-auto">
-                  <select class="custom-select p-2 my-2" id="questionsList">
+                <!-- <select class="custom-select p-2 my-2" id="questionsList">
                     <option class="text-center" selected>
                       Select your quiz topic here:
                     </option>
                     <option value="javascript">Javascript</option>
                     <option value="html">HTML</option>
                     <option value="css">CSS</option>
-                  </select>
+                  </select> -->
+                <div class="container py-3">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="javascriptCheckbox"
+                      value="javascript"
+                    />
+                    <label class="form-check-label" for="javascriptCheckbox"
+                      >Javascript</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="htmlCheckbox"
+                      value="html"
+                    />
+                    <label class="form-check-label" for="htmlCheckbox"
+                      >HTML</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="cssCheckbox"
+                      value="css"
+                    />
+                    <label class="form-check-label" for="cssCheckbox"
+                      >CSS</label
+                    >
+                  </div>
+                </div>
+                <div class="d-grid gap-2 lg-col-6 sm-col-12 mx-auto">
                   <button
                     class="btn btn-primary p-2 my-2"
                     id="start-btn"
