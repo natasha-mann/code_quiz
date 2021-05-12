@@ -5,7 +5,6 @@ import {
 } from "../../utils/questions.js";
 
 // Global Variables
-// dynamically build timer?
 let timerValue;
 
 let score = 0;
@@ -18,7 +17,6 @@ const setTimer = (questions) => {
   return (timerValue = questions.length * 10);
 };
 
-// Construct quiz questions container
 const constructQuizContainer = (questions) => {
   const quizContainerDiv = `
   <h2 class="card-header py-3 text-center timer">Time left: <span id="timer">0</span></h2>
@@ -32,27 +30,26 @@ const constructQuizContainer = (questions) => {
   $("#answers-div").click(checkAnswer);
 };
 
-// displays the questions on the screen
 const displayQuestion = () => {
   const currentQuestion = questions[questionIndex];
   if (questions.length > questionIndex) {
     $("#questions-div").text(currentQuestion.title);
     const choices = currentQuestion.choices;
+
+    const createChoiceAndAppend = (item, index) => {
+      $("#answers-div").append(`
+    <button class="btn btn-primary" type="button" id="${index}" data-answer="${item}">${item}</button>
+    `);
+    };
+
     choices.forEach(createChoiceAndAppend);
   }
 };
 
-// create answer buttons as function to be used in foreach loop
-const createChoiceAndAppend = (item, index) => {
-  $("#answers-div").append(`
-<button class="btn btn-primary" type="button" id="${index}" data-answer="${item}">${item}</button>
-`);
-};
-
-// Check Answer + display next question
 const checkAnswer = (event) => {
   const chosenAnswer = event.target;
   const answer = $(chosenAnswer).data("answer");
+
   if (answer == questions[questionIndex].answer) {
     score += 5;
     if ($(chosenAnswer).is("button")) {
@@ -68,9 +65,12 @@ const checkAnswer = (event) => {
       $(chosenAnswer).addClass("btn-danger");
     }
   }
+
   const questionDelayTimerCallback = () => {
     if (questionIndex <= questions.length - 1) {
       questionIndex += 1;
+
+      // if there are still questions left keep looping, else end the game
       if (questionIndex < questions.length) {
         $("#answers-div").empty();
       }
@@ -80,19 +80,18 @@ const checkAnswer = (event) => {
       gameOver();
     }
   };
-  const answerTimer = setTimeout(questionDelayTimerCallback, 500);
+  const answerTimer = setTimeout(questionDelayTimerCallback, 1000);
 };
 
-// final score function
 const calculateFinalScore = () => {
   const finalScore = score + timerValue;
   return finalScore;
 };
-// Construct Game OVer container
+
 const constructGameOverContainer = () => {
   const finalScore = calculateFinalScore();
 
-  const gameOver = `<h2 class="card-header py-3 text-center timer">Game Over!</h2>
+  const gameOver = `<h2 class="card-header py-3 text-center timer">Quiz Complete!</h2>
   <div class="card-body">
     <p class="card-text py-3 text-center"> Your final score is: <span id="final-score">${finalScore}</span></p>
     <form id="game-over-form">
@@ -115,22 +114,20 @@ const constructGameOverContainer = () => {
   $("#submit-score-btn").click(submitScore);
 };
 
-// Game over function
 const gameOver = () => {
   $("#main-container").empty();
   $("#timer").remove();
   constructGameOverContainer();
 };
 
-// Timer function
 const startTimer = () => {
-  // define callback function for setInterval
   const timerTick = () => {
     $("#timer").text(timerValue);
     if (timerValue > 0) {
       timerValue -= 1;
     }
-    // if no time is left  or all questions are answered, game ends
+
+    // check if time has run out or if there are no questions left, then end game
     if (timerValue === 0 || questionIndex > questions.length - 1) {
       clearInterval(timerInterval);
       gameOver();
@@ -139,9 +136,7 @@ const startTimer = () => {
   const timerInterval = setInterval(timerTick, 1000);
 };
 
-// Log high scores to local storage
 const storeUserScores = () => {
-  // get info from initials input
   const initials = $("#initials-input").val();
 
   const finalScore = calculateFinalScore();
@@ -159,7 +154,6 @@ const storeUserScores = () => {
   }
 };
 
-// Get high scores from local storage
 const getHighScoresFromLocalStorage = () => {
   const highScores = localStorage.getItem("highScores");
   if (highScores) {
@@ -169,7 +163,6 @@ const getHighScoresFromLocalStorage = () => {
   }
 };
 
-// Submit high scores
 const submitScore = (event) => {
   event.preventDefault();
   storeUserScores();
@@ -180,14 +173,17 @@ const selectQuestions = (javascriptQuestions, htmlQuestions, cssQuestions) => {
 
   if (selectedOption === "javascript") {
     return javascriptQuestions;
-  } else if (selectedOption === "html") {
+  }
+
+  if (selectedOption === "html") {
     return htmlQuestions;
-  } else if (selectedOption === "css") {
+  }
+
+  if (selectedOption === "css") {
     return cssQuestions;
   }
 };
 
-// Start quiz function
 const onSubmit = (event) => {
   event.preventDefault();
 
@@ -196,6 +192,7 @@ const onSubmit = (event) => {
   if (questions) {
     $("#main-container").empty();
     constructQuizContainer(questions);
+
     setTimer(questions);
     $("#timer").text(timerValue);
     startTimer();
