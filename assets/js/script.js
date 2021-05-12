@@ -169,25 +169,47 @@ const submitScore = (event) => {
 };
 
 const selectQuestions = (javascriptQuestions, htmlQuestions, cssQuestions) => {
-  const selectedOption = $("#questionsList").find(":selected").val();
+  const javascriptOption = $("#javascriptCheckbox");
+  const htmlOption = $("#htmlCheckbox");
+  const cssOption = $("#cssCheckbox");
 
-  if (selectedOption === "javascript") {
-    return javascriptQuestions;
+  if (javascriptOption.is(":checked")) {
+    questions.push(...javascriptQuestions);
   }
 
-  if (selectedOption === "html") {
-    return htmlQuestions;
+  if (htmlOption.is(":checked")) {
+    questions.push(...htmlQuestions);
   }
 
-  if (selectedOption === "css") {
-    return cssQuestions;
+  if (cssOption.is(":checked")) {
+    questions.push(...cssQuestions);
   }
+};
+
+const shuffleArray = (array) => {
+  let currentIndex = array.length;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    const randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    const temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 };
 
 const onSubmit = (event) => {
   event.preventDefault();
 
-  questions = selectQuestions(javascriptQuestions, htmlQuestions, cssQuestions);
+  selectQuestions(javascriptQuestions, htmlQuestions, cssQuestions);
+  questions = shuffleArray(questions);
+  console.log(questions);
 
   if (questions) {
     $("#main-container").empty();
