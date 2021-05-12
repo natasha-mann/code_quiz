@@ -122,34 +122,37 @@ const constructGameOverContainer = () => {
   const finalScore = calculateFinalScore();
   const modal = constructGameOverModal(questions);
 
-  const gameOver = `<h2 class="card-header py-3 text-center timer">Quiz Complete!</h2>
-  <div class="card-body">
-    <div class="d-grid gap-2 col-4 mx-auto py-3">
-      <button id="correct-answers-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answersModal" data-bs-whatever="@mdo">
+  const gameOver = `
+  <h2 class="card-header py-3 text-center timer">Quiz Complete!</h2>
+    <div class="card-body">
+     <div class="d-grid gap-2 col-4 mx-auto py-3">
+        <button id="correct-answers-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answersModal" data-bs-whatever="@mdo">
         See correct answers
-      </button>
-      ${modal}
-    </div>
+        </button>
+      
+      </div>
 
-    <p class="card-text py-3 text-center"> Your final score is: <span id="final-score">${finalScore}</span></p>
+      <p class="card-text py-3 text-center"> Your final score is: <span id="final-score">${finalScore}</span></p>
     
-    <form id="game-over-form">
-    <div class="mb-3">
-      <input
-        placeholder="Enter Initials"
-        id="initials-input"
-        class="form-control"
-      ></input>
-      </div>
-      <div class="d-grid gap-2 col-6 mx-auto py-3">
-      <button type="submit" id="submit-score-btn" class="btn btn-primary">
-        Submit
-      </button>
-      </div>
-    </form>
-  </div>`;
+      <form id="game-over-form">
+        <div class="mb-3">
+          <input
+            placeholder="Enter Initials"
+            id="initials-input"
+            class="form-control"
+          >
+          </input>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto py-3">
+          <button type="submit" id="submit-score-btn" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>`;
 
   $("#main-container").append(gameOver);
+  $(modal).prependTo("body");
 
   const showModal = () => {
     $("#answersModal").show();
