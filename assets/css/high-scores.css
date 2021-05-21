@@ -1,50 +1,18 @@
-html {
-  font-size: 10px;
+:root {
+  --pink: rgb(221, 146, 155);
+  --teal: rgb(82, 181, 178);
+  --darkteal: rgb(73, 171, 168);
+  --grey: rgb(234, 237, 240);
 }
 
 body {
-  width: 100%;
   height: 100vh;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: black;
   background-image: url(../images/background-img.jpg);
   background-size: cover;
   background-position: center;
 }
 
-/* High score container styles */
-
-.container {
-  width: 60%;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 1rem;
-}
-
-.heading-div h1 {
-  text-decoration: underline rgb(69, 184, 184);
-  text-underline-position: under;
-  font-size: 3.6rem;
-  font-weight: bold;
-}
-
-.high-scores-div {
-  padding-top: 3rem;
-}
-
-.info {
-  font-size: 2.4rem;
-  padding: 2rem;
-}
-
 .list-item {
-  list-style-type: none;
-  text-align: start;
-  font-size: 2.4rem;
-  padding: 0.5rem;
   border: 1px solid rgb(69, 184, 184);
 }
 
@@ -52,28 +20,17 @@ body {
   background-color: lightcyan;
 }
 
-.btns-div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  position: relative;
-  top: 40%;
-}
-
 .btn {
-  width: 30rem;
-  text-decoration: none;
-  border-radius: 5%;
-  color: black;
-  margin: 2rem;
-  padding: 2rem;
-  background-color: teal;
+  background-color: var(--teal);
   border: none;
-  font-size: 2.4rem;
-  font-weight: bolder;
 }
 
 .btn:hover {
-  color: white;
-  width: 29rem;
+  background-color: var(--darkteal);
+}
+
+@media screen and (max-width: 700px) {
+  #high-score-container {
+    width: 75% !important;
+  }
 }

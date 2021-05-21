@@ -1,213 +1,35 @@
-html {
-  font-size: 10px;
+:root {
+  --pink: rgb(221, 146, 155);
+  --teal: rgb(82, 181, 178);
+  --darkteal: rgb(73, 171, 168);
+  --grey: rgb(234, 237, 240);
 }
 
 body {
   height: 100vh;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: black;
   background-image: url(../images/background-img.jpg);
   background-size: cover;
   background-position: center;
 }
 
-/* main styling for intro page */
-.header-flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: aquamarine;
-  align-items: center;
-  padding: 2rem;
-}
-
-.high-scores-link {
-  text-decoration: none;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  background-color: teal;
-  color: black;
-  font-size: 2.4rem;
-  font-weight: bolder;
-}
-
-.high-scores-link:hover {
-  color: white;
-}
-
-.timer {
-  font-size: 3rem;
-}
-
-.main-container {
-  width: 95%;
-}
-
-.container {
-  height: 40rem;
-  width: 60%;
-  position: absolute;
-  left: 50%;
-  top: 32rem;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 2rem;
-}
-
-.heading-div {
-  padding: 3rem;
-}
-
-.heading-div h1 {
-  font-size: 5rem;
-  text-decoration: underline teal;
-  text-underline-position: under;
-}
-
-.description {
-  margin: 3rem, 0;
-  font-size: 2.3rem;
-}
-
-.start-button-div {
-  position: relative;
-  padding: 3rem;
-  left: 50%;
-  transform: translate(-50%);
-}
-
 .btn {
-  padding: 2rem;
-  background-color: teal;
-  border-radius: 1rem;
+  background-color: var(--teal);
   border: none;
-  font-size: 2.4rem;
-  font-weight: bolder;
-  border-radius: 5%;
-  width: 20rem;
 }
 
 .btn:hover {
-  color: white;
-  width: 19rem;
+  background-color: var(--darkteal);
 }
 
-/* Styling for quiz question container */
-.questions-div {
-  padding: 2rem;
-  font-size: 2.5rem;
-}
-
-.answers-div {
-  margin-top: 1rem;
-}
-
-.answer-btn {
-  position: relative;
-  left: 50%;
-  top: 20px;
-  transform: translate(-50%);
-  display: block;
-  margin: 0.5rem;
-  border-radius: 5%;
-  padding: 1rem;
-  background-color: teal;
-  border: none;
-  font-size: 2.4rem;
-  font-weight: bolder;
-  width: 20rem;
-}
-
-.answer-btn:hover {
-  background-color: rgb(154, 216, 216);
-}
-
-.correct-answer {
-  background-color: green;
-}
-
-.correct-answer:hover {
-  background-color: green;
-}
-
-.incorrect-answer {
-  background-color: red;
-}
-
-.incorrect-answer:hover {
-  background-color: red;
-}
-
-/* Styling for game over container */
-.results-heading-div {
-  margin: 2rem;
-  font-size: 3.2rem;
-}
-
-.results-info {
-  position: relative;
-  top: 10%;
-  margin: 2rem;
-  font-size: 2.4rem;
-}
-
-.game-over-form {
-  position: relative;
-  top: 20%;
-  margin: 3rem;
-}
-
-.initials-input {
-  padding: 1rem;
-  font-size: 1.8rem;
-  margin: 0.5rem;
-}
-
-.submit-score-btn {
-  padding: 1rem;
-  background-color: teal;
-  border: none;
-  border-radius: 1rem;
-  font-size: 1.8rem;
-  font-weight: bolder;
-  margin: 0.5rem;
-}
-
-@media screen and (max-width: 560px) {
-  .header-flex-container {
-    flex-direction: column;
-    justify-content: center;
-    padding: 0.5rem;
+@media screen and (max-width: 700px) {
+  #main-container {
+    margin-top: 10% !important;
+    width: 85% !important;
   }
+}
 
-  .link-div {
-    margin-top: 1rem;
-    padding-top: 2rem;
+@media screen and (max-width: 330px) {
+  #main-container {
+    width: 90% !important;
   }
-
-  .timer-div {
-    margin-top: 2rem;
-  }
-
-  .high-scores-link {
-    font-size: 2rem;
-    padding: 1.5rem;
-  }
-
-  .timer {
-    padding: 1.5rem;
-    font-size: 2.5rem;
-    font-weight: bold;
-  }
-
-  .container {
-    height: 40rem;
-    width: 75%;
-    position: absolute;
-    left: 50%;
-    top: 35rem;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    padding: 2rem;
-  }
-} ;
+}

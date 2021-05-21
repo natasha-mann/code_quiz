@@ -1,116 +1,78 @@
-const timerSpanElement = document.getElementById("timer");
-const startQuizButtonElement = document.getElementById("start-btn");
-const mainContainer = document.getElementById("main-container");
-const introContainer = document.getElementById("intro-container");
-const submitScoreBtn = document.getElementById("submit-score-btn");
+import {
+  javascriptQuestions,
+  htmlQuestions,
+  cssQuestions,
+} from "../../utils/questions.js";
 
-// timer starting value
-let timerValue = 60;
+// Global Variables
+let timerValue;
 
-// starting score
 let score = 0;
 
-// current question
 let questionIndex = 0;
 
-// Quiz question data
-const questions = [
-  {
-    title: "Which of these is NOT a way to declare a variable in Javascript?",
-    choices: ["const", "set", "let", "var"],
-    answer: "set",
-  },
+let questions = [];
 
-  {
-    title: "JavaScript variables are usually written in which type of case?",
-    choices: ["lowercase", "UPPERCASE", "camelCase", "CapitalCase"],
-    answer: "camelCase",
-  },
-
-  {
-    title: "Object properties are made up of pairs of keys and _____?",
-    choices: ["values", "properties", "variables", "arrays"],
-    answer: "values",
-  },
-
-  {
-    title:
-      "What do we call the values received by a function when it is invoked?",
-    choices: ["variables", "arguments", "parameters", "inputs"],
-    answer: "arguments",
-  },
-  {
-    title: "Which of the following is NOT a Javascript array method?",
-    choices: [".join()", ".pop()", ".unshift()", ".combine()"],
-    answer: ".combine()",
-  },
-];
-
-// Construct quiz questions container
-const constructQuizContainer = () => {
-  const quizContainerDiv = document.createElement("main");
-  quizContainerDiv.setAttribute("class", "container");
-  quizContainerDiv.setAttribute("id", "quiz-container");
-
-  const questionsContainerDiv = document.createElement("div");
-  questionsContainerDiv.setAttribute("class", "questions-div");
-  questionsContainerDiv.setAttribute("id", "questions-div");
-
-  const answersDiv = document.createElement("div");
-  answersDiv.setAttribute("class", "answers-div");
-  answersDiv.setAttribute("id", "answers-div");
-
-  quizContainerDiv.appendChild(questionsContainerDiv);
-  quizContainerDiv.appendChild(answersDiv);
-
-  return quizContainerDiv;
+const setTimer = (questions) => {
+  return (timerValue = questions.length * 10);
 };
 
-// displays the questions on the screen
+const constructQuizContainer = (questions) => {
+  const quizContainerDiv = `
+  <h2 class="card-header py-3 text-center timer">Time left: <span id="timer">0</span></h2>
+  <div class="card-body">
+    <p class="card-text py-3 text-center" id="questions-div"></p>
+    <div class="d-grid gap-2 col-6 mx-auto py-3 answers-div" id="answers-div"></div>
+  </div>`;
+
+  $("#main-container").append(quizContainerDiv);
+  displayQuestion();
+  $("#answers-div").click(checkAnswer);
+};
+
 const displayQuestion = () => {
   const currentQuestion = questions[questionIndex];
-  const questionsContainerDiv = document.getElementById("questions-div");
   if (questions.length > questionIndex) {
-    questionsContainerDiv.textContent = currentQuestion.title;
-    let choices = currentQuestion.choices;
+    $("#questions-div").text(currentQuestion.title);
+    const choices = currentQuestion.choices;
+
+    const createChoiceAndAppend = (item, index) => {
+      $("#answers-div").append(`
+    <button class="btn btn-primary" type="button" id="${index}" data-answer="${item}">${item}</button>
+    `);
+    };
+
     choices.forEach(createChoiceAndAppend);
   }
 };
 
-// create answer buttons as function to be used in foreach loop
-const createChoiceAndAppend = (item, index) => {
-  const answersDiv = document.getElementById("answers-div");
-  const answerButton = document.createElement("button");
-  answerButton.setAttribute("class", "answer-btn");
-  answerButton.setAttribute("id", index);
-  answerButton.setAttribute("data-answer", item);
-  answerButton.textContent = item;
+const checkAnswer = (event) => {
+  const chosenAnswer = event.target;
+  const answer = $(chosenAnswer).data("answer");
 
-  answersDiv.appendChild(answerButton);
-  answerButton.addEventListener("click", function () {
-    const answer = this.getAttribute("data-answer");
-    const button = this;
-    checkAnswer(answer, button);
-  });
-};
-
-// Check Answer + display next question
-const checkAnswer = (answer, button) => {
   if (answer == questions[questionIndex].answer) {
     score += 5;
-    button.setAttribute("class", "answer-btn correct-answer");
+    if ($(chosenAnswer).is("button")) {
+      $(chosenAnswer).removeClass("btn-primary");
+      $(chosenAnswer).addClass("btn-success");
+    }
   } else {
     if (timerValue >= 10) {
       timerValue -= 10;
     }
-    button.setAttribute("class", "answer-btn incorrect-answer");
+    if ($(chosenAnswer).is("button")) {
+      $(chosenAnswer).removeClass("btn-primary");
+      $(chosenAnswer).addClass("btn-danger");
+    }
   }
+
   const questionDelayTimerCallback = () => {
     if (questionIndex <= questions.length - 1) {
       questionIndex += 1;
+
+      // if there are still questions left keep looping, else end the game
       if (questionIndex < questions.length) {
-        const answersDiv = document.getElementById("answers-div");
-        answersDiv.innerHTML = "";
+        $("#answers-div").empty();
       }
       displayQuestion();
       clearInterval(answerTimer);
@@ -121,76 +83,101 @@ const checkAnswer = (answer, button) => {
   const answerTimer = setTimeout(questionDelayTimerCallback, 1000);
 };
 
-// final score function
 const calculateFinalScore = () => {
   const finalScore = score + timerValue;
   return finalScore;
 };
 
-// Construct Game OVer container
+const constructGameOverModal = (questions) => {
+  const generateAnswerTable = (each) => {
+    return `
+    <li><span class="fw-bold">Question: </span><span class="fw-normal">${each.title}</span> </li>
+    <p><span class="fw-bold">Answer: </span> <span class="fw-normal">${each.answer}</span></p>
+    `;
+  };
+  const questionListItems = questions.map(generateAnswerTable);
+
+  return `
+  <div class="modal fade" tabindex="-1"  id="answersModal" aria-labelledby="answersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="answersModalLabel">Correct Answers</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            ${questionListItems.join("")}
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+};
+
 const constructGameOverContainer = () => {
-  const gameOverContainerDiv = document.createElement("main");
-  gameOverContainerDiv.setAttribute("class", "container");
-  gameOverContainerDiv.setAttribute("id", "game-over-container");
+  const finalScore = calculateFinalScore();
 
-  const headingContainerDiv = document.createElement("div");
-  headingContainerDiv.setAttribute("class", "results-heading-div");
+  const gameOver = `
+  <h2 class="card-header py-3 text-center timer">Quiz Complete!</h2>
+    <div class="card-body">
+     <div class="d-grid gap-2 col-4 mx-auto py-3">
+        <button id="correct-answers-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answersModal" data-bs-whatever="@mdo">
+        See correct answers
+        </button>
+      
+      </div>
 
-  const resultsContainerDiv = document.createElement("div");
-  resultsContainerDiv.setAttribute("class", "results-info");
+      <p class="card-text py-3 text-center"> Your final score is: <span id="final-score">${finalScore}</span></p>
+    
+      <form id="game-over-form">
+        <div class="mb-3">
+          <input
+            placeholder="Enter Initials"
+            id="initials-input"
+            class="form-control"
+          >
+          </input>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto py-3">
+          <button type="submit" id="submit-score-btn" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>`;
 
-  const finalScoreSpan = document.createElement("span");
-  finalScoreSpan.setAttribute("id", "final-score");
+  $("#main-container").append(gameOver);
 
-  const gameOverForm = document.createElement("form");
-  gameOverForm.setAttribute("id", "game-over-form");
-  gameOverForm.setAttribute("class", "game-over-form");
+  const modal = constructGameOverModal(questions);
+  $(modal).prependTo("body");
 
-  const initialsInput = document.createElement("input");
-  initialsInput.setAttribute("placeholder", "Enter Initials");
-  initialsInput.setAttribute("id", "initials-input");
-  initialsInput.setAttribute("class", "initials-input");
+  const showModal = () => {
+    $("#answersModal").show();
+  };
 
-  const submitScoreBtn = document.createElement("button");
-  submitScoreBtn.setAttribute("type", "submit");
-  submitScoreBtn.setAttribute("id", "submit-score-btn");
-  submitScoreBtn.setAttribute("class", "submit-score-btn");
+  $("#correct-answers-btn").click(showModal);
 
-  headingContainerDiv.textContent = "All done!";
-  resultsContainerDiv.textContent = "Your final score is: ";
-  submitScoreBtn.textContent = "Submit";
-  finalScoreSpan.textContent = calculateFinalScore();
-
-  submitScoreBtn.addEventListener("click", submitScore);
-
-  gameOverContainerDiv.appendChild(headingContainerDiv);
-  gameOverContainerDiv.appendChild(resultsContainerDiv);
-  resultsContainerDiv.appendChild(finalScoreSpan);
-  gameOverContainerDiv.appendChild(gameOverForm);
-  gameOverForm.appendChild(initialsInput);
-  gameOverForm.appendChild(submitScoreBtn);
-
-  return gameOverContainerDiv;
+  $("#submit-score-btn").click(submitScore);
 };
 
-// Game over function
 const gameOver = () => {
-  const gameOverContainer = constructGameOverContainer();
-  const quizContainerDiv = document.getElementById("quiz-container");
-  mainContainer.removeChild(quizContainerDiv);
-  timerSpanElement.remove();
-  mainContainer.appendChild(gameOverContainer);
+  $("#main-container").empty();
+  $("#timer").remove();
+  constructGameOverContainer();
 };
 
-// Timer function
 const startTimer = () => {
-  // define callback function for setInterval
   const timerTick = () => {
-    timerSpanElement.textContent = timerValue;
+    $("#timer").text(timerValue);
     if (timerValue > 0) {
       timerValue -= 1;
     }
-    // if no time is left  or all questions are answered, game ends
+
+    // check if time has run out or if there are no questions left, then end game
     if (timerValue === 0 || questionIndex > questions.length - 1) {
       clearInterval(timerInterval);
       gameOver();
@@ -199,12 +186,11 @@ const startTimer = () => {
   const timerInterval = setInterval(timerTick, 1000);
 };
 
-// Log high scores to local storage
 const storeUserScores = () => {
-  // get info from initials input
-  let initials = document.getElementById("initials-input").value;
+  const initials = $("#initials-input").val();
+
   const finalScore = calculateFinalScore();
-  if (initials !== "") {
+  if (initials) {
     const userFinalScore = {
       initials: initials,
       score: finalScore,
@@ -218,7 +204,6 @@ const storeUserScores = () => {
   }
 };
 
-// Get high scores from local storage
 const getHighScoresFromLocalStorage = () => {
   const highScores = localStorage.getItem("highScores");
   if (highScores) {
@@ -228,21 +213,63 @@ const getHighScoresFromLocalStorage = () => {
   }
 };
 
-// Submit high scores
 const submitScore = (event) => {
   event.preventDefault();
   storeUserScores();
 };
 
-// Start quiz function
-const startQuiz = () => {
-  mainContainer.removeChild(introContainer);
-  const quizContainerDiv = constructQuizContainer();
-  mainContainer.appendChild(quizContainerDiv);
+const selectQuestions = (javascriptQuestions, htmlQuestions, cssQuestions) => {
+  const javascriptOption = $("#javascriptCheckbox");
+  const htmlOption = $("#htmlCheckbox");
+  const cssOption = $("#cssCheckbox");
 
-  displayQuestion();
-  timerSpanElement.textContent = timerValue;
-  startTimer();
+  if (javascriptOption.is(":checked")) {
+    questions.push(...javascriptQuestions);
+  }
+
+  if (htmlOption.is(":checked")) {
+    questions.push(...htmlQuestions);
+  }
+
+  if (cssOption.is(":checked")) {
+    questions.push(...cssQuestions);
+  }
 };
 
-startQuizButtonElement.addEventListener("click", startQuiz);
+const shuffleArray = (array) => {
+  let currentIndex = array.length;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    const randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    const temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
+
+const onSubmit = (event) => {
+  event.preventDefault();
+
+  selectQuestions(javascriptQuestions, htmlQuestions, cssQuestions);
+  questions = shuffleArray(questions);
+
+  if (questions.length) {
+    $("#main-container").empty();
+    constructQuizContainer(questions);
+
+    setTimer(questions);
+    $("#timer").text(timerValue);
+    startTimer();
+  } else {
+    $("#start-btn").popover("show");
+  }
+};
+
+$("#start-form").on("submit", onSubmit);
